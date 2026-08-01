@@ -1,18 +1,18 @@
-# @jterrazz/reach
+# @jterrazz/manifest
 
-Define a site's reach once — identity, pages, discovery — and project it into every surface: metadata, identity JSON-LD, sitemap, robots.txt, llms.txt. A conformance suite (run through `specification.website()` from `@jterrazz/test`) keeps the projections honest against the real site.
+Your site's presence, declared once. The manifest declares — identity, pages, discovery — the projections derive every surface from it (metadata, identity JSON-LD, sitemap, robots.txt, llms.txt), and the audit (run through `specification.website()` from `@jterrazz/test`) verifies the live site against it.
 
 ## Install
 
 ```sh
-npm install @jterrazz/reach
+npm install @jterrazz/manifest
 ```
 
 ## Declare
 
 ```ts
-// reach.config.ts
-import { defineSite, person } from '@jterrazz/reach';
+// manifest.config.ts
+import { defineSite, person } from '@jterrazz/manifest';
 
 export const site = defineSite({
     address: 'https://example.com',
@@ -39,9 +39,9 @@ export const GET = createLlms(site, [articlesProvider]);
 ## Verify
 
 ```ts
-// specs/website/conformance/conformance.test.ts
-import { conformance } from '@jterrazz/reach/testing';
-conformance(website, site);
+// specs/website/manifest/manifest.test.ts
+import { audit } from '@jterrazz/manifest/testing';
+audit.website(website, site); // website from specification.website() (@jterrazz/test)
 ```
 
 The model speaks the language of intent; the projections speak the language of standards. The domain knowledge (SEO, GEO, structured data, content) ships as agent skills in [`skills/`](skills/).

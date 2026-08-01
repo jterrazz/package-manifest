@@ -1,6 +1,6 @@
-# Agent brief — `@jterrazz/reach`
+# Agent brief — `@jterrazz/manifest`
 
-Define a site's reach once, project it into every surface, verify it with a conformance suite. Three entries: `.` (model + projections), `./next` (App Router adapter), `./testing` (rule pack for `specification.website()`).
+The manifest declares, the projections derive, the audit verifies. A site's presence declared once, projected into every machine-facing surface, checked against the live site. Three entries: `.` (model + projections), `./next` (App Router adapter), `./testing` (`audit.website`, run through `specification.website()`).
 
 ## Layout
 
@@ -9,8 +9,8 @@ src/core/model/         # the language of intent: defineSite, person, page, url 
 src/core/projections/   # the language of standards: json-ld, sitemap, robots, llms
 src/next/               # createSitemap / createRobots / createLlms
 src/testing/            # conformance(website, site) — needs @jterrazz/test (peer)
-skills/                 # the reach domain skills (seo, geo, structured-data, content-reach)
-                        # + jterrazz-reach (wiring this package)
+skills/                 # the domain skills (seo, geo, structured-data, content-reach)
+                        # + jterrazz-manifest (wiring this package)
 ```
 
 ## Rules
