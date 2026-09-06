@@ -1,6 +1,6 @@
 {
     "name": "@jterrazz/manifest",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "description": "Your site's presence, declared once — a manifest projected into every machine-facing surface (metadata, identity JSON-LD, sitemap, robots, llms.txt), with an audit that verifies the live site against it.",
     "license": "MIT",
     "author": "Jean-Baptiste Terrazzoni <contact@jterrazz.com>",
