@@ -2,4 +2,6 @@ node_modules/
 .idea
 .DS_Store
 dist
-*.tgz
+
+# Build, test and lint artefacts (@jterrazz/typescript)
+.artifacts/
