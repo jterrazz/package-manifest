@@ -1,6 +1,6 @@
 {
     "name": "@jterrazz/manifest",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "description": "Your site's presence, declared once — a manifest projected into every machine-facing surface (metadata, identity JSON-LD, sitemap, robots, llms.txt), with an audit that verifies the live site against it.",
     "license": "MIT",
     "author": "Jean-Baptiste Terrazzoni <contact@jterrazz.com>",
@@ -33,15 +33,15 @@
         "test": "vitest --run"
     },
     "devDependencies": {
-        "@jterrazz/test": "^9.2.0",
-        "@jterrazz/typescript": "^6.1.0",
+        "@jterrazz/test": "^14.1.0",
+        "@jterrazz/typescript": "^9.0.0",
         "next": "^16.2.10",
         "tsdown": "^0.15.7",
         "typescript": "^5.9.3",
         "vitest": "^4.1.9"
     },
     "peerDependencies": {
-        "@jterrazz/test": ">=9.2.0",
+        "@jterrazz/test": ">=14.1.0",
         "next": ">=15",
         "vitest": ">=3"
     },

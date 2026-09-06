@@ -18,4 +18,5 @@ skills/                 # the domain skills (seo, geo, structured-data, content-
 - Model never imports projections' vocabulary; protocol names (Open Graph, schema.org, robots) live in `src/core/projections/` only.
 - The package never reads content — consumers implement `PageProvider`s.
 - Module unit tests are siblings (`<file>.test.ts`); `make build lint test` must stay green.
+- Everything a tool writes lands under `.artifacts/<tool>/` — the tsc buildinfo, vitest's cache, a `npm pack` tarball (`--pack-destination .artifacts/npm`); `dist/` is the published product, not an artefact. The convention and its gate are `@jterrazz/typescript`'s.
 - Domain knowledge (judgment) belongs in `skills/`; the package codifies only what is mechanically checkable. A new mechanical invariant goes into `src/testing/` as a named conformance rule.
