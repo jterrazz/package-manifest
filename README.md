@@ -46,4 +46,14 @@ audit.website(website, site); // website from specification.website() (@jterrazz
 
 The model speaks the language of intent; the projections speak the language of standards. The domain knowledge (SEO, GEO, structured data, content) ships as agent skills in [`skills/`](skills/).
 
+## Documentation
+
+The full corpus lives in [`docs/`](docs/):
+
+- [Architecture](docs/01-architecture.md) — the three entries, the model/projections boundary, the audit entry.
+- [Developing](docs/02-developing.md) — install and wiring, the commands, where a new file goes.
+- [Testing](docs/03-testing.md) — the unit tests and the ten-rule audit pack.
+- [Operating](docs/04-operating.md) — what publishes it, and which version ships.
+- [Projections](docs/05-projections.md) — URL policy, identity JSON-LD, sitemap, robots, llms.txt.
+
 MIT © [Jean-Baptiste Terrazzoni](https://github.com/jterrazz)
