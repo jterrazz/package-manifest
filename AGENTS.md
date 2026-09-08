@@ -1,22 +1,36 @@
 # Agent brief — `@jterrazz/manifest`
 
-The manifest declares, the projections derive, the audit verifies. A site's presence declared once, projected into every machine-facing surface, checked against the live site. Three entries: `.` (model + projections), `./next` (App Router adapter), `./testing` (`audit.website`, run through `specification.website()`).
+The manifest declares, the projections derive, the audit verifies. A site's presence declared once, projected into every machine-facing surface, checked against the live site. Three entries: `.` (model + projections), `./next` (App Router adapter), `./testing` (`audit.website`, run through `specification.website()`). This file **routes**; it does not restate what the corpus already says.
 
-## Layout
+## Where knowledge lives (route here first)
 
+The corpus is `docs/` + `README.md`, mapped by `docs/README.md`. Do not duplicate it — link to it.
+
+| Working on…                                       | Read                      |
+| ------------------------------------------------- | ------------------------- |
+| the three entries, the model/projections boundary | `docs/01-architecture.md` |
+| wiring, the commands, where a new file goes       | `docs/02-developing.md`   |
+| the unit tests, the audit rule pack               | `docs/03-testing.md`      |
+| the release, which version ships                  | `docs/04-operating.md`    |
+| the four projections in detail                    | `docs/05-projections.md`  |
+
+Domain knowledge (SEO, GEO, structured data, content reach) ships as agent
+skills in `skills/`, alongside `jterrazz-manifest` (wiring this package) —
+they route into the corpus and never restate it.
+
+`CLAUDE.md` at the root is a symlink to this file: one brief, two names, no
+second copy.
+
+## Setup
+
+```bash
+npm install
 ```
-src/core/model/         # the language of intent: defineSite, person, page, url policy
-src/core/projections/   # the language of standards: json-ld, sitemap, robots, llms
-src/next/               # createSitemap / createRobots / createLlms
-src/testing/            # conformance(website, site) — needs @jterrazz/test (peer)
-skills/                 # the domain skills (seo, geo, structured-data, content-reach)
-                        # + jterrazz-manifest (wiring this package)
-```
 
-## Rules
+## Commands
 
-- Model never imports projections' vocabulary; protocol names (Open Graph, schema.org, robots) live in `src/core/projections/` only.
-- The package never reads content — consumers implement `PageProvider`s.
-- Module unit tests are siblings (`<file>.test.ts`); `make build lint test` must stay green.
-- Everything a tool writes lands under `.artifacts/<tool>/` — the tsc buildinfo, vitest's cache, a `npm pack` tarball (`--pack-destination .artifacts/npm`); `dist/` is the published product, not an artefact. The convention and its gate are `@jterrazz/typescript`'s.
-- Domain knowledge (judgment) belongs in `skills/`; the package codifies only what is mechanically checkable. A new mechanical invariant goes into `src/testing/` as a named conformance rule.
+| Task  | Command      |
+| ----- | ------------ |
+| Build | `make build` |
+| Lint  | `make lint`  |
+| Test  | `make test`  |

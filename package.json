@@ -34,7 +34,7 @@
     },
     "devDependencies": {
         "@jterrazz/test": "^14.1.0",
-        "@jterrazz/typescript": "^9.0.0",
+        "@jterrazz/typescript": "^9.2.0",
         "next": "^16.2.10",
         "tsdown": "^0.15.7",
         "typescript": "^5.9.3",
