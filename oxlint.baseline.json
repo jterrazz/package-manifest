@@ -1,0 +1,4 @@
+{
+    "jterrazz/f2-no-test-imports-in-prod": 2,
+    "typescript/no-unsafe-type-assertion": 1
+}
