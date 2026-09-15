@@ -1,3 +1,6 @@
 import { defineSpecConfig } from '@jterrazz/test/vitest';
+import { type ViteUserConfig } from 'vitest/config';
 
-export default defineSpecConfig();
+const config: ViteUserConfig = defineSpecConfig();
+
+export default config;
