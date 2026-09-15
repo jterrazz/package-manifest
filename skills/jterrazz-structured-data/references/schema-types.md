@@ -76,7 +76,9 @@ Required: `name`, `address` (PostalAddress). Recommended: `geo` (GeoCoordinates)
             "url": "https://site.com",
             "publisher": { "@id": "https://site.com/#person" }
         },
+
         { "@type": "Person", "@id": "https://site.com/#person", "name": "…" },
+
         {
             "@type": "BlogPosting",
             "headline": "…",

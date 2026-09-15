@@ -12,11 +12,15 @@ package, and the audit rule pack it ships for a consumer's own site.
 ## The unit tests
 
 A module's test is its sibling, `<file>.test.ts`, run with `vitest --run`
-(`make test`, `package.json:33`): `src/core/model/urls.test.ts` proves the
-URL policy (`urlFor`, `alternatesFor`), and
-`src/core/projections/projections.test.ts` proves the four projections
-against declared sites and pages. These run against the package alone — no
-rendered page, no network.
+(`make test`, `package.json:33`): `src/model/urls.test.ts` proves the URL
+policy (`urlFor`, `alternatesFor`), and each projection is proved by the test
+standing next to it — `src/projections/json-ld.test.ts`,
+`llms.test.ts`, `robots.test.ts`, `sitemap.test.ts`. These run against the
+package alone — no rendered page, no network.
+
+The site and the article they all read are declared once, in
+`src/model/site.fixtures.ts` and `src/model/page.fixtures.ts` — a fixture
+sits beside the model it instantiates, and only a test may import one.
 
 ## The audit
 
@@ -25,7 +29,7 @@ CONSUMER's rendered or deployed site against its own `SiteDefinition`. It is
 a closed namespace in the shape `specification` exposes: one method, no
 options and no skip list — the manifest itself conditions which rules apply
 (`channels/feed` runs exactly when a site declares it,
-`src/testing/index.ts:96-102`). Ten named `vitest` tests, each reading like a
+`src/testing/index.ts:105-111`). Ten named `vitest` tests, each reading like a
 finding — rule, evidence, fix:
 
 | Rule                                 | Proves                                                           |
@@ -41,7 +45,7 @@ finding — rule, evidence, fix:
 | `voice/title-pattern`                | the homepage title carries the identity's name                   |
 | `quality/console-silence`            | the homepage renders with no console error                       |
 
-(`src/testing/index.ts:22-128`.)
+(`src/testing/index.ts:41-137`.)
 
 ## Running the audit
 
@@ -56,7 +60,7 @@ import { audit } from '@jterrazz/manifest/testing';
 audit.website(website, site); // website from specification.website() (@jterrazz/test)
 ```
 
-`@jterrazz/test` is an optional peer (`package.json:44,49-51`) — a consumer
+`@jterrazz/test` is an optional peer (`package.json:43,48-50`) — a consumer
 that never imports `@jterrazz/manifest/testing` never installs it. The
 reference consumer running this audit today is `jterrazz-web`
 (`skills/jterrazz-manifest/SKILL.md:31`).

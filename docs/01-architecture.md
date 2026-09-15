@@ -14,30 +14,30 @@ projections, a Next.js adapter, and the audit rule pack.
 
 ## The three entries
 
-`package.json`'s `exports` map, built by `tsdown.config.ts:8-17`, ships three
+`package.json`'s `exports` map, built by `tsdown.config.ts:8-19`, ships three
 ESM entries from three source roots:
 
 | Entry       | Built from             | Ships                                 |
 | ----------- | ---------------------- | ------------------------------------- |
-| `.`         | `src/core/index.ts`    | the model and the projections         |
+| `.`         | `src/index.ts`         | the model and the projections         |
 | `./next`    | `src/next/index.ts`    | the App Router adapter                |
 | `./testing` | `src/testing/index.ts` | the audit rule pack (`audit.website`) |
 
 `next`, `vitest` and `@jterrazz/test` are peer-provided and stay external to
-the build (`tsdown.config.ts:15`) — a consumer that never imports `./next` or
-`./testing` never installs them (`package.json:43-58`).
+the build (`tsdown.config.ts:9`) — a consumer that never imports `./next` or
+`./testing` never installs them (`package.json:42-57`).
 
 ## Model vs projections
 
-`src/core/index.ts:1-21` re-exports the two halves of the `.` entry in the
+`src/index.ts:1-38` re-exports the two halves of the `.` entry in the
 order they are layered:
 
-- **The model** (`src/core/model/`) speaks the language of INTENT —
+- **The model** (`src/model/`) speaks the language of INTENT —
   `defineSite`, `person`, `page`, and the URL policy (`urlFor`,
-  `alternatesFor`, `src/core/model/urls.ts`). It never imports a standard's
+  `alternatesFor`, `src/model/urls.ts`). It never imports a standard's
   vocabulary: no Open Graph, no schema.org, no sitemap shape
-  (`src/core/model/site.ts:4-6`).
-- **The projections** (`src/core/projections/`) speak the language of
+  (`src/model/site.ts:4-6`).
+- **The projections** (`src/projections/`) speak the language of
   STANDARDS. Each file owns one surface and reads the model, never the other
   way: `json-ld.ts` (the identity graph, `personId`/`websiteId`/
   `projectIdentityGraph`), `sitemap.ts` (`projectSitemap`, one entry per page
@@ -46,14 +46,14 @@ order they are layered:
   (`projectLlms`, the `llms.txt` markdown index).
 
 Every page carries a `PageKind` (`article | collection | gallery | home |
-profile | software`, `src/core/model/page.ts:7`), and `KIND_DEFAULTS`
-(`src/core/model/page.ts:39-49`) is the one table that turns a kind into a
+profile | software`, `src/model/page.ts:7`), and `KIND_DEFAULTS`
+(`src/model/page.ts:39-49`) is the one table that turns a kind into a
 sitemap priority, a change frequency, and feed/llms membership — a page
 declared is a page fully projected, with no per-page ceremony at the call
 site.
 
 The package never reads content itself: a consumer implements a
-`PageProvider` (`src/core/model/page.ts:36`), a zero-argument function
+`PageProvider` (`src/model/page.ts:36`), a zero-argument function
 enumerating that consumer's own pages.
 
 ## The Next.js adapter
