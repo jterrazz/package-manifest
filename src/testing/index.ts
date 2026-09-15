@@ -1,7 +1,7 @@
-import type { WebsiteSpecification } from '@jterrazz/test';
+import { type WebsiteSpecification } from '@jterrazz/test';
 import { expect, test } from 'vitest';
 
-import type { SiteDefinition } from '../core/index.js';
+import { type SiteDefinition } from '../index.js';
 
 /**
  * The manifest audit — every declared surface, verified on the rendered site
@@ -17,6 +17,25 @@ import type { SiteDefinition } from '../core/index.js';
  * plain vitest test named after what it guards, so a failure reads like a
  * finding: rule, evidence, fix.
  */
+/** A JSON object — the shape every JSON-LD node has, read without asserting. */
+function isRecord(value: unknown): value is Record<string, unknown> {
+    return typeof value === 'object' && value !== null;
+}
+
+/** A JSON array — `Array.isArray` narrows an `unknown` to `any[]`, this does not. */
+function isList(value: unknown): value is unknown[] {
+    return Array.isArray(value);
+}
+
+/** Every JSON-LD node of a page, with each `@graph` block flattened into the list. */
+function jsonLdNodes(value: unknown): Record<string, unknown>[] {
+    const blocks = isList(value) ? value : [value];
+    return blocks.filter(isRecord).flatMap((block) => {
+        const graph = block['@graph'];
+        return isList(graph) ? graph.filter(isRecord) : [block];
+    });
+}
+
 export const audit = {
     website(website: WebsiteSpecification, site: SiteDefinition): void {
         test('manifest/canonical-host — the homepage canonical points at the declared address', async () => {
@@ -44,16 +63,12 @@ export const audit = {
             const result = await website.visit('/');
 
             // Then - one Person node, carrying the stable id and the declared name
-            const nodes = (result.jsonLd.value as Array<Record<string, unknown>>).flatMap(
-                (block) =>
-                    Array.isArray(block['@graph'])
-                        ? (block['@graph'] as Record<string, unknown>[])
-                        : [block],
+            const persons = jsonLdNodes(result.jsonLd.value).filter(
+                (node) => node['@type'] === 'Person',
             );
-            const persons = nodes.filter((node) => node['@type'] === 'Person');
             expect(persons).toHaveLength(1);
-            expect(persons[0]['@id']).toBe(`${site.address}/#person`);
-            expect(persons[0]['name']).toBe(site.identity.name);
+            expect(persons[0]?.['@id']).toBe(`${site.address}/#person`);
+            expect(persons[0]?.name).toBe(site.identity.name);
         });
 
         test('discovery/robots-serves-sitemap — robots.txt allows, hides, and names the sitemap', async () => {
@@ -73,11 +88,9 @@ export const audit = {
             const result = await website.fetch('/robots.txt');
 
             // Then - 'welcome' means no AI bot is named; 'blocked' names them
-            if (site.discovery.aiCrawlers === 'welcome') {
-                expect(result.body).not.toContain('GPTBot');
-            } else {
-                expect(result.body).toContain('GPTBot');
-            }
+            expect(result.body.text.includes('GPTBot')).toBe(
+                site.discovery.aiCrawlers === 'blocked',
+            );
         });
 
         test('channels/llms-index — llms.txt exists exactly when declared', async () => {
@@ -85,12 +98,8 @@ export const audit = {
             const result = await website.fetch('/llms.txt');
 
             // Then - present and headed by the identity, or absent
-            if (site.channels.llms) {
-                expect(result.status).toBe(200);
-                expect(result.body).toContain(`# ${site.identity.name}`);
-            } else {
-                expect(result.status).toBe(404);
-            }
+            expect(result.status).toBe(site.channels.llms ? 200 : 404);
+            expect(result.body.text.includes(`# ${site.identity.name}`)).toBe(site.channels.llms);
         });
 
         test('channels/feed — the feed exists exactly when declared', async () => {
