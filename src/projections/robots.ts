@@ -1,4 +1,4 @@
-import type { SiteDefinition } from '../model/site.js';
+import { type SiteDefinition } from '../model/site.js';
 
 /**
  * Robots projection — the discovery intent as robots.txt rules. AI crawlers
@@ -17,10 +17,10 @@ const AI_CRAWLERS = [
     'PerplexityBot',
 ];
 
-export interface RobotsProjection {
-    rules: Array<{ allow?: string; disallow?: string[]; userAgent: string }>;
+export type RobotsProjection = {
+    rules: { allow?: string; disallow?: string[]; userAgent: string }[];
     sitemap: string;
-}
+};
 
 export function projectRobots(site: SiteDefinition): RobotsProjection {
     const rules: RobotsProjection['rules'] = [

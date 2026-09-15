@@ -6,12 +6,12 @@
 
 export type PageKind = 'article' | 'collection' | 'gallery' | 'home' | 'profile' | 'software';
 
-export interface PageDates {
+export type PageDates = {
     modified?: string;
     published?: string;
-}
+};
 
-export interface PageDefinition {
+export type PageDefinition = {
     dates?: PageDates;
     description: string;
     /** Cover image path or absolute URL, when the page has one. */
@@ -22,7 +22,7 @@ export interface PageDefinition {
     /** Path without locale prefix (`/articles/24-worldbuilding`). */
     path: string;
     title: string;
-}
+};
 
 /** Declare a page. */
 export function page(definition: PageDefinition): PageDefinition {

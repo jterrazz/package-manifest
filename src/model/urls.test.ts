@@ -1,18 +1,8 @@
 import { describe, expect, test } from 'vitest';
 
 import { page } from './page.js';
-import { defineSite, person } from './site.js';
+import { site } from './site.fixtures.js';
 import { alternatesFor, urlFor } from './urls.js';
-
-const site = defineSite({
-    address: 'https://site.test',
-    channels: { feed: true, llms: true },
-    discovery: { aiCrawlers: 'welcome', hidden: ['/api/'] },
-    identity: person({ headline: 'Maker', name: 'Test', occupation: 'Engineer', profiles: [] }),
-    languages: { all: ['en', 'fr'], main: 'en' },
-    sharing: { card: { caption: 'Test', height: 630, image: '/card.png', width: 1200 } },
-    voice: { brand: 'T', description: 'A test site.', titlePattern: '%s | T' },
-});
 
 describe('url policy', () => {
     test('the main locale is unprefixed, others carry their prefix', () => {
@@ -33,7 +23,7 @@ describe('url policy', () => {
         });
 
         // Then - one alternate per locale plus x-default on the main one
-        expect(alternatesFor(site, both)).toEqual({
+        expect(alternatesFor(site, both)).toStrictEqual({
             en: 'https://site.test/a',
             fr: 'https://site.test/fr/a',
             'x-default': 'https://site.test/a',
@@ -51,6 +41,6 @@ describe('url policy', () => {
         });
 
         // Then - no x-default pointing at a page that is not there
-        expect(alternatesFor(site, frOnly)).toEqual({ fr: 'https://site.test/fr/a' });
+        expect(alternatesFor(site, frOnly)).toStrictEqual({ fr: 'https://site.test/fr/a' });
     });
 });

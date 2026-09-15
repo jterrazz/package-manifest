@@ -1,17 +1,21 @@
-import { defineConfig } from 'tsdown';
+import { defineConfig, type UserConfig } from 'tsdown';
 
 /**
  * Three ESM entries mirroring the exports map: the core model+projections,
  * the Next.js adapter, and the testing rule pack. Peer-provided frameworks
  * (next, vitest, @jterrazz/test) stay external.
  */
-export default defineConfig({
+const config: UserConfig = defineConfig({
+    deps: { neverBundle: ['next', 'vitest', '@jterrazz/test'] },
     dts: true,
+    // The exports map publishes `.js` / `.d.ts`; tsdown pins `.mjs` on the node platform.
+    fixedExtension: false,
     entry: {
-        index: 'src/core/index.ts',
+        index: 'src/index.ts',
         next: 'src/next/index.ts',
         testing: 'src/testing/index.ts',
     },
-    external: ['next', 'vitest', '@jterrazz/test'],
     format: ['esm'],
 });
+
+export default config;

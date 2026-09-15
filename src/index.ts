@@ -22,12 +22,16 @@ export { alternatesFor, urlFor } from './model/urls.js';
 
 // The projections — the language of standards
 export {
+    type IdentityGraph,
     personId,
+    type PersonNode,
+    type PersonRef,
     projectAuthorRef,
     projectIdentityGraph,
     projectPerson,
     projectWebSite,
     websiteId,
+    type WebSiteNode,
 } from './projections/json-ld.js';
 export { projectLlms } from './projections/llms.js';
 export { projectRobots, type RobotsProjection } from './projections/robots.js';

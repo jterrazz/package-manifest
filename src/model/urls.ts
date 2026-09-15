@@ -1,5 +1,5 @@
-import type { PageDefinition } from './page.js';
-import type { SiteDefinition } from './site.js';
+import { type PageDefinition } from './page.js';
+import { type SiteDefinition } from './site.js';
 
 /**
  * URL policy — the ONE place URLs are built. Locale prefixes, x-default,
@@ -9,7 +9,9 @@ import type { SiteDefinition } from './site.js';
 /** Absolute URL of a path in a locale. */
 export function urlFor(site: SiteDefinition, path: string, locale: string): string {
     const prefixed =
-        locale === site.languages.main && !site.languages.prefixMain ? path : `/${locale}${path}`;
+        locale === site.languages.main && site.languages.prefixMain !== true
+            ? path
+            : `/${locale}${path}`;
     return `${site.address}${prefixed}`;
 }
 

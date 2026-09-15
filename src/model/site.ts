@@ -7,7 +7,7 @@
  */
 
 /** The person behind the site — one canonical identity, referenced everywhere. */
-export interface Person {
+export type Person = {
     /** Contact email, published in the identity graph. */
     contact?: string;
     /** What the person says they do — for humans (titles, cards). */
@@ -22,54 +22,54 @@ export interface Person {
     profiles: string[];
     /** Topics the person demonstrably knows. */
     topics?: string[];
-}
+};
 
 /** Locale configuration — what exists, what leads, how URLs carry it. */
-export interface Languages {
+export type Languages = {
     /** Every locale the site genuinely serves. */
     all: string[];
     /** The fallback locale — x-default resolves here. */
     main: string;
     /** Whether the main locale is path-prefixed (`/en/...`). Default false. */
     prefixMain?: boolean;
-}
+};
 
 /** How links to the site look when shared — projected as Open Graph / Twitter Card. */
-export interface SharingCard {
+export type SharingCard = {
     /** Accessible description of the card image. */
     caption: string;
     /** Card image path — must really be `width`×`height`. */
     image: string;
     height: number;
     width: number;
-}
+};
 
 /** What crawlers may reach — projected as robots.txt. */
-export interface Discovery {
+export type Discovery = {
     /** AI crawlers policy: 'welcome' leaves them unblocked (GEO), 'blocked' shuts them out. */
     aiCrawlers: 'blocked' | 'welcome';
     /** Path prefixes hidden from all crawlers (`/api/`, redirect endpoints…). */
     hidden: string[];
-}
+};
 
 /** The standards-as-products the site publishes. */
-export interface Channels {
+export type Channels = {
     /** RSS feed of the articles. */
     feed: boolean;
     /** Llms.txt markdown index for AI consumption. */
     llms: boolean;
-}
+};
 
 /** The site's editorial voice — brand, title shape, default description. */
-export interface Voice {
+export type Voice = {
     brand: string;
     /** The default description — homepage, identity graph, llms.txt intro. */
     description: string;
     /** Title pattern, `%s` replaced by the page title. */
     titlePattern: string;
-}
+};
 
-export interface SiteDefinition {
+export type SiteDefinition = {
     /** THE canonical origin — one host, no trailing slash. Everything derives from it. */
     address: string;
     channels: Channels;
@@ -78,7 +78,7 @@ export interface SiteDefinition {
     languages: Languages;
     sharing: { card: SharingCard };
     voice: Voice;
-}
+};
 
 /** Declare the canonical person identity. */
 export function person(options: Omit<Person, 'kind'>): Person {
