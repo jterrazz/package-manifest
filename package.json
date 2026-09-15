@@ -40,9 +40,9 @@
         "vitest": "^4.1.9"
     },
     "peerDependencies": {
-        "@jterrazz/test": ">=14.1.0",
+        "@jterrazz/test": ">=15",
         "next": ">=15",
-        "vitest": ">=3"
+        "vitest": ">=4"
     },
     "peerDependenciesMeta": {
         "@jterrazz/test": {

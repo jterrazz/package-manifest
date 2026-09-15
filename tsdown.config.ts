@@ -1,7 +1,7 @@
 import { defineConfig, type UserConfig } from 'tsdown';
 
 /**
- * Three ESM entries mirroring the exports map: the core model+projections,
+ * Three ESM entries mirroring the exports map: the model and its projections,
  * the Next.js adapter, and the testing rule pack. Peer-provided frameworks
  * (next, vitest, @jterrazz/test) stay external.
  */
