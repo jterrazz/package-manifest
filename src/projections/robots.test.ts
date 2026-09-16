@@ -22,6 +22,14 @@ describe('robots projection', () => {
         });
 
         // Then - each bot gets its own full disallow
-        expect(robots.rules.some((rule) => rule.userAgent === 'GPTBot')).toBeTruthy();
+        expect(robots.rules.filter((rule) => rule.userAgent !== '*')).toStrictEqual([
+            { disallow: ['/'], userAgent: 'anthropic-ai' },
+            { disallow: ['/'], userAgent: 'ChatGPT-User' },
+            { disallow: ['/'], userAgent: 'ClaudeBot' },
+            { disallow: ['/'], userAgent: 'Google-Extended' },
+            { disallow: ['/'], userAgent: 'GPTBot' },
+            { disallow: ['/'], userAgent: 'OAI-SearchBot' },
+            { disallow: ['/'], userAgent: 'PerplexityBot' },
+        ]);
     });
 });
