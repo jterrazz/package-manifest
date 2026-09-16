@@ -33,8 +33,8 @@
         "test": "vitest --run"
     },
     "devDependencies": {
-        "@jterrazz/test": "^15.0.0",
-        "@jterrazz/typescript": "^10.0.0",
+        "@jterrazz/test": "^15.1.0",
+        "@jterrazz/typescript": "^10.1.6",
         "next": "^16.2.10",
         "tsdown": "^0.23.0",
         "vitest": "^4.1.9"

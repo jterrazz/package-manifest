@@ -1,4 +1,5 @@
-import { defineConfig, type UserConfig } from 'tsdown';
+import { defineConfig } from 'tsdown';
+import type { UserConfig } from 'tsdown';
 
 /**
  * Three ESM entries mirroring the exports map: the model and its projections,
