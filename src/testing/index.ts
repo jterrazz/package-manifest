@@ -1,7 +1,7 @@
-import { type WebsiteSpecification } from '@jterrazz/test';
+import type { WebsiteSpecification } from '@jterrazz/test';
 import { expect, test } from 'vitest';
 
-import { type SiteDefinition } from '../index.js';
+import type { SiteDefinition } from '../index.js';
 
 /**
  * The manifest audit — every declared surface, verified on the rendered site

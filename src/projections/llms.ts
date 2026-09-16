@@ -1,5 +1,6 @@
-import { KIND_DEFAULTS, type PageDefinition } from '../model/page.js';
-import { type SiteDefinition } from '../model/site.js';
+import { KIND_DEFAULTS } from '../model/page.js';
+import type { PageDefinition } from '../model/page.js';
+import type { SiteDefinition } from '../model/site.js';
 import { urlFor } from '../model/urls.js';
 
 /**

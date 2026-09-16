@@ -1,4 +1,4 @@
-import { type SiteDefinition } from '../model/site.js';
+import type { SiteDefinition } from '../model/site.js';
 
 /**
  * Robots projection — the discovery intent as robots.txt rules. AI crawlers

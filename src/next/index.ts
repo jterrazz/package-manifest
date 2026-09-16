@@ -1,12 +1,7 @@
-import { type MetadataRoute } from 'next';
+import type { MetadataRoute } from 'next';
 
-import {
-    type PageProvider,
-    projectLlms,
-    projectRobots,
-    projectSitemap,
-    type SiteDefinition,
-} from '../index.js';
+import { projectLlms, projectRobots, projectSitemap } from '../index.js';
+import type { PageProvider, SiteDefinition } from '../index.js';
 
 /**
  * The Next.js adapter — thin glue from the projections to the App Router

@@ -1,5 +1,5 @@
-import { type PageDefinition } from './page.js';
-import { type SiteDefinition } from './site.js';
+import type { PageDefinition } from './page.js';
+import type { SiteDefinition } from './site.js';
 
 /**
  * URL policy — the ONE place URLs are built. Locale prefixes, x-default,

@@ -1,4 +1,4 @@
-import { type SiteDefinition } from '../model/site.js';
+import type { SiteDefinition } from '../model/site.js';
 
 /**
  * JSON-LD projection — the identity graph. One Person entity with a

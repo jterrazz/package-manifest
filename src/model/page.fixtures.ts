@@ -1,4 +1,5 @@
-import { page, type PageDefinition } from './page.js';
+import { page } from './page.js';
+import type { PageDefinition } from './page.js';
 
 /** A bilingual article — the page kind every projection has something to say about. */
 export const article: PageDefinition = page({

@@ -1,4 +1,5 @@
-import { defineSite, person, type SiteDefinition } from './site.js';
+import { defineSite, person } from './site.js';
+import type { SiteDefinition } from './site.js';
 
 /** The declared site every model and projection test reads from. */
 export const site: SiteDefinition = defineSite({
