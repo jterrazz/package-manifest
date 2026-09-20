@@ -39,7 +39,7 @@ export const GET = createLlms(site, [articlesProvider]);
 ## Verify
 
 ```ts
-// specs/website/manifest/manifest.test.ts
+// specs/website/manifest/manifest.spec.ts
 import { audit } from '@jterrazz/manifest/testing';
 audit.website(website, site); // website from specification.website() (@jterrazz/test)
 ```
