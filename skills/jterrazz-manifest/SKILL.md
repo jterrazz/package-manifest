@@ -17,7 +17,7 @@ The site's presence is declared ONCE in `manifest.config.ts` (`defineSite`, `per
 ## The audit
 
 ```ts
-// specs/website/manifest/manifest.test.ts
+// specs/website/manifest/manifest.spec.ts
 import { audit } from '@jterrazz/manifest/testing';
 audit.website(website, site); // website from specification.website() (@jterrazz/test)
 ```

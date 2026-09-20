@@ -51,17 +51,21 @@ finding — rule, evidence, fix:
 
 A consumer builds a `WebsiteSpecification` handle with `specification.website()`
 from `@jterrazz/test`, then calls `audit.website(website, site)` against its
-own `manifest.config.ts` declaration:
+own `manifest.config.ts` declaration. The file is a `.spec.ts` in the
+consumer's website specs tree — the assembled product met through an address
+is a spec, and only a module test beside its module keeps `.test.ts`:
 
 ```ts
-// specs/website/manifest/manifest.test.ts
+// specs/website/manifest/manifest.spec.ts
 import { audit } from '@jterrazz/manifest/testing';
 
 audit.website(website, site); // website from specification.website() (@jterrazz/test)
 ```
 
 `@jterrazz/test` is an optional peer (`package.json:43,48-50`) — a consumer
-that never imports `@jterrazz/manifest/testing` never installs it. The
+that never imports `@jterrazz/manifest/testing` never installs it. Its floor
+is 16, and `vitest`'s is 5: the audit pack is typed against 16's
+`WebsiteSpecification`, and 16 takes `vitest ^5` as its one required peer. The
 reference consumer running this audit today is `jterrazz-web`
 (`skills/jterrazz-manifest/SKILL.md:31`).
 
