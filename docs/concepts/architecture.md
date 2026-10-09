@@ -31,7 +31,7 @@ The package never reads content. A consumer implements `PageProvider`, a functio
 
 ## The audit entry
 
-`src/index.testing.ts` exports `audit`, a closed namespace in the shape of `@jterrazz/test`'s `specification`: one method, `audit.website(website, site)`, no options and no skip list — the declaration itself conditions the rules. It registers ten vitest tests in the consumer's own website spec, each driving the `WebsiteSpecification` handle the consumer built. This entry is the one place production code imports test packages, and `jterrazz.config.ts` allows exactly those two (`test.production.allow`), with the reason each is run.
+`src/index.testing.ts` exports `audit`, a closed namespace in the shape of `@jterrazz/test`'s `specification`: one method, `audit.website(website, site)`, no options and no skip list — the declaration itself conditions the rules. It registers ten vitest tests in the consumer's own website spec, each driving the `WebsiteSpecification` handle the consumer built. This entry is the one place production code imports test packages; `jterrazz.config.ts` allows those two (`test.production.allow`), with the reason each is run — for the whole package, since the allow cannot name an entry ([Develop § The declaration](../guides/develop.md#the-declaration)).
 
 ## Related
 

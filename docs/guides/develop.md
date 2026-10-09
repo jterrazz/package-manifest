@@ -10,7 +10,7 @@ How a change to this package is made: the declaration every config follows, the 
 - knip, the build and Stryker are configured by the commands that run them — no `knip.json`, no `tsdown.config.*`;
 - the published entries are read off `package.json#exports`: `.` from `src/index.ts`, `./next` from `src/index.next.ts`, `./testing` from `src/index.testing.ts`.
 
-The declaration holds one exception, `test.production.allow`: the `./testing` entry imports `vitest` and `@jterrazz/test`, since registering tests on a consumer's specification handle is what it ships ([Architecture § The audit entry](../concepts/architecture.md#the-audit-entry)).
+The declaration holds one exception, `test.production.allow`: the `./testing` entry imports `vitest` and `@jterrazz/test`, since registering tests on a consumer's specification handle is what it ships ([Architecture § The audit entry](../concepts/architecture.md#the-audit-entry)). The allow covers the whole package, not that entry: `@jterrazz/test`'s production rule reads a package name, so nothing stops `src/model/` or `src/projections/` from importing `vitest` or `@jterrazz/test` — keeping them to `src/index.testing.ts` is review's, until the allow can be scoped to an entry.
 
 ## The gestures
 
