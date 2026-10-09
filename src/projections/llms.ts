@@ -1,16 +1,24 @@
-import { KIND_DEFAULTS } from '../model/page.js';
 import type { PageDefinition } from '../model/page.js';
 import type { SiteDefinition } from '../model/site.js';
 import { urlFor } from '../model/urls.js';
 
 /** The llms.txt index of the site (https://llmstxt.org): its articles and software under the identity. */
 export function projectLlms(site: SiteDefinition, pages: PageDefinition[]): string {
-    const included = pages.filter((page) => KIND_DEFAULTS[page.kind].llms);
-    const articles = included.filter((page) => page.kind === 'article');
-    const software = included.filter((page) => page.kind === 'software');
-
-    const line = (page: PageDefinition): string =>
-        `- [${page.title}](${urlFor(site, page.path, site.languages.main)}): ${page.description}`;
+    const lines = (kind: PageDefinition['kind']): string[] =>
+        pages
+            .filter((page) => page.kind === kind)
+            .flatMap((page) => {
+                const locale = page.locales.includes(site.languages.main)
+                    ? site.languages.main
+                    : page.locales[0];
+                return locale === undefined
+                    ? []
+                    : [
+                          `- [${page.title}](${urlFor(site, page.path, locale)}): ${page.description}`,
+                      ];
+            });
+    const articles = lines('article');
+    const software = lines('software');
 
     const sections: string[] = [
         `# ${site.identity.name}`,
@@ -20,10 +28,10 @@ export function projectLlms(site: SiteDefinition, pages: PageDefinition[]): stri
         `${site.identity.name} (${site.identity.headline.toLowerCase()}) builds small apps and tools, and writes notes on software, AI agents, and owning your own stack. Articles are available in English and French (French under /fr/).`,
     ];
     if (articles.length > 0) {
-        sections.push('', '## Articles', '', ...articles.map(line));
+        sections.push('', '## Articles', '', ...articles);
     }
     if (software.length > 0) {
-        sections.push('', '## Experiments', '', ...software.map(line));
+        sections.push('', '## Experiments', '', ...software);
     }
     sections.push(
         '',
