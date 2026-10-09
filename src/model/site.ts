@@ -1,11 +1,3 @@
-/**
- * The site model — the single declaration every surface projects from.
- *
- * The model speaks the language of INTENT (identity, sharing, discovery);
- * the projections speak the language of standards (Open Graph, JSON-LD,
- * sitemap.xml). Implementation vocabulary never leaks up here.
- */
-
 /** The person behind the site — one canonical identity, referenced everywhere. */
 export type Person = {
     /** Contact email, published in the identity graph. */

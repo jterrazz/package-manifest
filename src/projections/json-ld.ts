@@ -1,11 +1,5 @@
 import type { SiteDefinition } from '../model/site.js';
 
-/**
- * JSON-LD projection — the identity graph. One Person entity with a
- * stable `@id`, one WebSite publishing it, rendered once per page.
- * Standards vocabulary (schema.org) lives here, never in the model.
- */
-
 /** The Person reference authored content points at — the id and what a citation shows. */
 export type PersonRef = {
     '@id': string;

@@ -1,4 +1,3 @@
-// The model — the language of intent
 export {
     type Channels,
     defineSite,
@@ -20,7 +19,6 @@ export {
 } from './model/page.js';
 export { alternatesFor, urlFor } from './model/urls.js';
 
-// The projections — the language of standards
 export {
     type IdentityGraph,
     personId,

@@ -3,11 +3,7 @@ import type { PageDefinition } from '../model/page.js';
 import type { SiteDefinition } from '../model/site.js';
 import { urlFor } from '../model/urls.js';
 
-/**
- * The llms.txt projection — a markdown index of the site for LLM
- * consumption (https://llmstxt.org). Pages opt in via their kind.
- */
-
+/** The llms.txt index of the site (https://llmstxt.org): its articles and software under the identity. */
 export function projectLlms(site: SiteDefinition, pages: PageDefinition[]): string {
     const included = pages.filter((page) => KIND_DEFAULTS[page.kind].llms);
     const articles = included.filter((page) => page.kind === 'article');

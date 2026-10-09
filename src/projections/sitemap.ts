@@ -3,11 +3,6 @@ import type { PageDefinition } from '../model/page.js';
 import type { SiteDefinition } from '../model/site.js';
 import { alternatesFor, urlFor } from '../model/urls.js';
 
-/**
- * Sitemap projection — one entry per page per existing locale, kind-driven
- * priorities, honest lastModified (absent rather than fabricated).
- */
-
 export type SitemapEntry = {
     alternates: { languages: Record<string, string> };
     changeFrequency: 'monthly' | 'weekly';

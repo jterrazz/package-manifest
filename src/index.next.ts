@@ -3,12 +3,6 @@ import type { MetadataRoute } from 'next';
 import { projectLlms, projectRobots, projectSitemap } from './index.js';
 import type { PageProvider, SiteDefinition } from './index.js';
 
-/**
- * The Next.js adapter — thin glue from the projections to the App Router
- * conventions (`app/sitemap.ts`, `app/robots.ts`, route handlers). No
- * decisions here: everything is derived in core.
- */
-
 /** `app/sitemap.ts`: `export default createSitemap(site, providers);` */
 export function createSitemap(
     site: SiteDefinition,

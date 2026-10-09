@@ -1,9 +1,3 @@
-/**
- * The page model — every page declares its kind, and the kind drives the
- * defaults of every surface (schema type, OG type, sitemap priority,
- * llms.txt/feed membership). A page declared is a page fully projected.
- */
-
 export type PageKind = 'article' | 'collection' | 'gallery' | 'home' | 'profile' | 'software';
 
 export type PageDates = {
@@ -29,10 +23,7 @@ export function page(definition: PageDefinition): PageDefinition {
     return definition;
 }
 
-/**
- * The port the app implements: enumerate the site's pages from its own
- * content sources. The package never reads a filesystem or CMS itself.
- */
+/** The port a site implements: every page of its own content sources, listed. */
 export type PageProvider = () => PageDefinition[];
 
 /** Per-kind projection defaults — one place, no per-page ceremony. */

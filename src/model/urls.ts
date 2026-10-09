@@ -1,11 +1,6 @@
 import type { PageDefinition } from './page.js';
 import type { SiteDefinition } from './site.js';
 
-/**
- * URL policy — the ONE place URLs are built. Locale prefixes, x-default,
- * and host consistency live here so no surface can drift from another.
- */
-
 /** Absolute URL of a path in a locale. */
 export function urlFor(site: SiteDefinition, path: string, locale: string): string {
     const prefixed =
@@ -15,10 +10,7 @@ export function urlFor(site: SiteDefinition, path: string, locale: string): stri
     return `${site.address}${prefixed}`;
 }
 
-/**
- * Hreflang alternates of a page — one entry per existing locale, plus
- * x-default only when the main locale genuinely exists.
- */
+/** The hreflang alternates of a page: one per locale it exists in, and x-default where the main locale is one of them. */
 export function alternatesFor(site: SiteDefinition, page: PageDefinition): Record<string, string> {
     const languages: Record<string, string> = {};
     for (const locale of page.locales) {
