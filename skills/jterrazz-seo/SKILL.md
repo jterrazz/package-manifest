@@ -56,11 +56,80 @@ Per-page: one clear primary keyword, no two pages targeting the same one (cannib
 
 - `app/sitemap.ts`, `app/robots.ts`, and the Metadata API are the canonical mechanisms — no third-party SEO packages.
 - **Caveat:** `alternates.languages` does not auto-add the self-referencing hreflang for the current locale — add it explicitly.
-- Reference implementation: `jterrazz-web` → `manifest.config.ts` (the single source of truth) projected by `@jterrazz/manifest` (`package-manifest`): sitemap/robots/llms.txt are one-liner routes, the identity JSON-LD is a projected `@graph`, and its website specification runs the `audit.website(website, site)` rule pack against the built site via `specification.website()` (`@jterrazz/test`). Prefer wiring a site into the manifest over hand-rolling these surfaces.
+- Wire a site into `@jterrazz/manifest` (`package-manifest`) rather than hand-rolling these surfaces: `manifest.config.ts` is the single source of truth, the sitemap, robots.txt and llms.txt are projected from it (one-liner routes with `@jterrazz/manifest/next`), the identity JSON-LD is a projected `@graph`, and a website spec runs the `audit.website(website, site)` rule pack against the built site via `specification.website()` (`@jterrazz/test`). Reference consumer: `jterrazz-web`, on Astro.
 
 ## Deep checklists
 
-For the full technical audit checklists (crawlability, indexation, speed, security, common issues by site type), read [references/audit-checklists.md](references/audit-checklists.md).
+Work top-down; each section maps to the priority order above.
+
+### 1. Crawlability
+
+#### robots.txt
+
+- No unintentional blocks on important paths; `Disallow` only for API routes, internals, redirect endpoints.
+- References the sitemap (`Sitemap: https://…/sitemap.xml`).
+
+#### XML sitemap
+
+- Accessible, valid XML, submitted to Search Console.
+- Contains canonical URLs only (no redirects, no noindexed pages, no 404s).
+- `lastModified` reflects real content changes — engines learn to ignore fake freshness.
+- Multi-locale: `xmlns:xhtml` namespace, `<xhtml:link>` alternates for all locales **including self** and `x-default`, absolute URLs everywhere.
+
+#### Architecture
+
+- Every important page ≤ 3 clicks from the homepage.
+- No orphan pages (in sitemap but linked from nowhere).
+- Large sites: parameterized URLs and faceted navigation under control (crawl budget).
+
+### 2. Indexation
+
+- Search Console coverage: indexed count ≈ expected count; investigate gaps.
+- No `noindex` on important pages (check both meta tag and `X-Robots-Tag` header).
+- Canonicals: unique self-reference per page; consistent HTTPS, host, and trailing-slash form across canonical + sitemap + hreflang + internal links.
+- No redirect chains or loops; internal links point at final URLs.
+- Soft 404s (thin "not found"-ish pages returning 200) cleaned up.
+- Duplicate/near-duplicate content consolidated with canonicals or merged.
+
+### 3. Technical foundations
+
+**Core Web Vitals** — LCP < 2.5s, INP < 200ms, CLS < 0.1 (field data from the CWV report beats lab data).
+
+Speed levers, in usual impact order: TTFB (caching/CDN/SSG), image sizing + modern formats, JavaScript payload, font loading (no invisible-text flash), CSS delivery, caching headers.
+
+**Mobile** — responsive (one URL), correct viewport, adequate tap targets, no horizontal scroll, desktop feature parity (mobile-first indexing).
+
+**Security** — HTTPS site-wide, valid cert, no mixed content, HTTP→HTTPS 301, HSTS optional.
+
+### 4. On-page issues to hunt
+
+- Duplicate or truncated titles/descriptions across pages (template bugs).
+- Multiple H1s, skipped heading levels, headings used for styling.
+- Thin pages: tag/category indexes with no unique value, doorway pages.
+- Keyword cannibalization: two URLs ranking-flip for the same query.
+- Broken internal links, generic anchors ("click here").
+
+### 5. Content quality / E-E-A-T
+
+- **Experience** — first-hand evidence: real examples, screenshots, numbers, lessons.
+- **Expertise** — author identified with credentials; claims sourced.
+- **Authoritativeness** — cited by others, consistent entity info (name, links, profiles).
+- **Trust** — accurate, dated, contact/about pages, HTTPS, privacy policy.
+- Decay: pages that lost traffic usually need a refresh (update facts, expand, re-date honestly) before any new content is written.
+
+### Common issues by site type
+
+| Site type            | Usual suspects                                                                                                            |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| Portfolio / personal | Missing Person/WebSite schema, weak internal linking from home to best work, no author entity consistency across profiles |
+| SaaS / product       | Shallow product pages, blog disconnected from product pages, missing comparison/alternative pages                         |
+| Content / blog       | Outdated posts never refreshed, cannibalization, no clustering, missing author pages                                      |
+| Multi-locale         | Hreflang missing returns or self-refs, cross-locale canonicals, partially translated pages, no x-default                  |
+| E-commerce           | Thin categories, duplicated descriptions, facet-generated duplicates, missing Product schema                              |
+
+### Tools
+
+Free and sufficient for most audits: Google Search Console, PageSpeed Insights, Rich Results Test (renders JS — use it for schema), Bing Webmaster Tools. Paid, when scale demands: Screaming Frog, Ahrefs/Semrush.
 
 ## Related skills
 

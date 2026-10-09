@@ -25,7 +25,9 @@ export const site = defineSite({
 });
 ```
 
-## Project (Next.js)
+## Project
+
+The projections are plain functions of the declaration and of the pages a site lists — `projectIdentityGraph`, `projectSitemap`, `projectRobots`, `projectLlms` — for any framework. On Next.js, `@jterrazz/manifest/next` turns each route into one line:
 
 ```ts
 // app/sitemap.ts
@@ -41,19 +43,20 @@ export const GET = createLlms(site, [articlesProvider]);
 ```ts
 // specs/website/manifest/manifest.spec.ts
 import { audit } from '@jterrazz/manifest/testing';
-audit.website(website, site); // website from specification.website() (@jterrazz/test)
+audit.website(website, site); // website from specification.website() (@jterrazz/test 17)
 ```
 
 The model speaks the language of intent; the projections speak the language of standards. The domain knowledge (SEO, GEO, structured data, content) ships as agent skills in [`skills/`](skills/).
 
 ## Documentation
 
-The full corpus lives in [`docs/`](docs/):
+The manual lives in [`docs/`](docs/README.md):
 
-- [Architecture](docs/01-architecture.md) — the three entries, the model/projections boundary, the audit entry.
-- [Developing](docs/02-developing.md) — install and wiring, the commands, where a new file goes.
-- [Testing](docs/03-testing.md) — the unit tests and the ten-rule audit pack.
-- [Operating](docs/04-operating.md) — what publishes it, and which version ships.
-- [Projections](docs/05-projections.md) — URL policy, identity JSON-LD, sitemap, robots, llms.txt.
+- [Architecture](docs/concepts/architecture.md) — the three entries, the model and the projections, the audit entry.
+- [Develop](docs/guides/develop.md) — the declaration, the gestures, where a new file goes.
+- [Test](docs/guides/test.md) — the specs from the tarball and the audit spec.
+- [Release](docs/guides/release.md) — what publishes the package, and its peer range.
+- [Projections](docs/reference/projections.md) — URL policy, identity JSON-LD, sitemap, robots, llms.txt.
+- [Audit](docs/reference/audit.md) — the ten rules of `audit.website`.
 
 MIT © [Jean-Baptiste Terrazzoni](https://github.com/jterrazz)

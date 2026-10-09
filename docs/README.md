@@ -1,16 +1,28 @@
-# @jterrazz/manifest — the corpus
+# @jterrazz/manifest — the manual
 
-The manual of this package: what it is, how it is changed, what proves a
-change, and how it is released. `AGENTS.md` and the `jterrazz-manifest` skill
-route into it; they never restate it.
+A site's presence declared once, projected into every machine-facing surface, and audited on the live site. What the package is and how a site starts using it is the repository's README; this page lists every page of the manual, by what the reader came to do.
 
-| Chapter                                  | Holds                                                                                             |
-| ---------------------------------------- | ------------------------------------------------------------------------------------------------- |
-| [01-architecture.md](01-architecture.md) | The three published entries, the model/projections boundary, the Next.js adapter, the audit entry |
-| [02-developing.md](02-developing.md)     | Install and wiring, the commands, the artefact convention, where a new file goes                  |
-| [03-testing.md](03-testing.md)           | The module unit tests and the ten-rule audit pack, and how a consumer runs it                     |
-| [04-operating.md](04-operating.md)       | What merging does, what publishes, and which version ships                                        |
-| [05-projections.md](05-projections.md)   | The four projections in detail: URL policy, identity JSON-LD, sitemap, robots, llms.txt           |
+## Guides
 
-Decisions this package alone took stand in [decisions/](decisions/), the mold
-`_template.md` beside them.
+| Page                         | Answers                                                                                  |
+| ---------------------------- | ---------------------------------------------------------------------------------------- |
+| [Develop](guides/develop.md) | Changing the package: the declaration, the gestures, where a new file goes, what it owes |
+| [Test](guides/test.md)       | Proving a change: the specs that install the tarball, the audit spec, the mutations      |
+| [Release](guides/release.md) | How the package is published, who cuts a release, and what its peer range follows        |
+
+## Concepts
+
+| Page                                     | Answers                                                                           |
+| ---------------------------------------- | --------------------------------------------------------------------------------- |
+| [Architecture](concepts/architecture.md) | The three entries, the model and the projections, the adapter and the audit entry |
+
+## Reference
+
+| Page                                    | Answers                                                                      |
+| --------------------------------------- | ---------------------------------------------------------------------------- |
+| [Projections](reference/projections.md) | The URL policy, and what identity JSON-LD, sitemap, robots and llms.txt hold |
+| [Audit](reference/audit.md)             | The ten rules of `audit.website`, and how a consumer runs them               |
+
+## Decisions
+
+The records of decisions this package alone took are in [`decisions/`](decisions/), numbered in the order they were taken, the mold `_template.md` beside them. A decision spanning several repositories is recorded by the corpus that spans them.
