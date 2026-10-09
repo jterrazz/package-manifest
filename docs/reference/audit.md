@@ -24,7 +24,7 @@ There are no options and no skip list: the declaration conditions the rules — 
 | `channels/llms-index`                | `llms.txt` answers 200 and opens on `# <name>` when declared, 404 when not                        |
 | `channels/feed`                      | `/feed.xml` answers 200 when declared, 404 when not                                               |
 | `sharing/card-reachable`             | the homepage's `og:image` is the declared card, and the card answers 200                          |
-| `voice/title-pattern`                | the homepage title holds the identity's name                                                      |
+| `identity/named-in-title`            | the homepage title holds the identity's name                                                      |
 | `quality/console-silence`            | the homepage renders with no console error                                                        |
 
 The rules are written against `@jterrazz/test` 17's result accessors, its peer range: the `.visit()` rules render the homepage in Playwright's Chromium, an optional peer of `@jterrazz/test` the consumer installs.

@@ -133,8 +133,8 @@ const cardReachable: Rule = (website, site) => {
     });
 };
 
-const titlePattern: Rule = (website, site) => {
-    test('voice/title-pattern — the homepage title leads with the identity', async () => {
+const namedInTitle: Rule = (website, site) => {
+    test('identity/named-in-title — the homepage title names the identity', async () => {
         // Given - the rendered homepage
         const result = await website.visit(HOMEPAGE);
 
@@ -162,7 +162,7 @@ const RULES: Rule[] = [
     llmsIndex,
     feed,
     cardReachable,
-    titlePattern,
+    namedInTitle,
     consoleSilence,
 ];
 

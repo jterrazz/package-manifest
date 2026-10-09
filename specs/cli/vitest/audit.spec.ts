@@ -25,7 +25,7 @@ describe('audit', () => {
             passed channels/llms-index — llms.txt exists exactly when declared
             passed channels/feed — the feed exists exactly when declared
             passed sharing/card-reachable — the sharing card image answers and is declared on the page
-            passed voice/title-pattern — the homepage title leads with the identity
+            passed identity/named-in-title — the homepage title names the identity
             passed quality/console-silence — the homepage renders without console errors
         `);
     });
@@ -126,7 +126,7 @@ describe('audit', () => {
                 +   "image": 404,
                 +   "ogImage": "https://site.test/cover.png",
                   }
-            failed voice/title-pattern — the homepage title leads with the identity
+            failed identity/named-in-title — the homepage title names the identity
                 Expected: "Ada Example"
                 Received: "Notes"
             failed quality/console-silence — the homepage renders without console errors
@@ -159,7 +159,7 @@ describe('audit', () => {
             passed channels/llms-index — llms.txt exists exactly when declared
             passed channels/feed — the feed exists exactly when declared
             passed sharing/card-reachable — the sharing card image answers and is declared on the page
-            passed voice/title-pattern — the homepage title leads with the identity
+            passed identity/named-in-title — the homepage title names the identity
             passed quality/console-silence — the homepage renders without console errors
         `);
     });
@@ -186,7 +186,7 @@ describe('audit', () => {
             passed channels/llms-index — llms.txt exists exactly when declared
             passed channels/feed — the feed exists exactly when declared
             passed sharing/card-reachable — the sharing card image answers and is declared on the page
-            passed voice/title-pattern — the homepage title leads with the identity
+            passed identity/named-in-title — the homepage title names the identity
             passed quality/console-silence — the homepage renders without console errors
         `);
     });
@@ -227,7 +227,7 @@ describe('audit', () => {
                 - 404
                 + 200
             passed sharing/card-reachable — the sharing card image answers and is declared on the page
-            passed voice/title-pattern — the homepage title leads with the identity
+            passed identity/named-in-title — the homepage title names the identity
             passed quality/console-silence — the homepage renders without console errors
         `);
     });

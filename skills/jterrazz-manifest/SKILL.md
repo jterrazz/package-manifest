@@ -23,7 +23,7 @@ import { audit } from '@jterrazz/manifest/testing';
 audit.website(website, site); // website from specification.website() (@jterrazz/test 17)
 ```
 
-A closed namespace in the shape of `specification` — one method per subject, no options, no skip list: the manifest itself conditions the rules (`channels/feed` runs exactly when declared). Ten named rules (manifest/canonical-host, hreflang, identity/single-person, discovery, channels, sharing, voice, quality/console-silence) run against the built or deployed site. A failure reads as a finding: the rule, then what the site answered. The rules and what each checks: `docs/reference/audit.md`.
+A closed namespace in the shape of `specification` — one method per subject, no options, no skip list: the manifest itself conditions the rules (`channels/feed` runs exactly when declared). Ten named rules (manifest/canonical-host, hreflang, identity/single-person, identity/named-in-title, discovery, channels, sharing, quality/console-silence) run against the built or deployed site. A failure reads as a finding: the rule, then what the site answered. The rules and what each checks: `docs/reference/audit.md`.
 
 ## Boundaries
 
