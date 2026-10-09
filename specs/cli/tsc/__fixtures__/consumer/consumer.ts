@@ -1,25 +1,68 @@
 import type { WebsiteSpecification } from '@jterrazz/test';
-import { defineSite, page, person, projectIdentityGraph, projectSitemap } from '@jterrazz/manifest';
-import type { PageProvider, SiteDefinition, SitemapEntry } from '@jterrazz/manifest';
+import {
+    defineSite,
+    KIND_DEFAULTS,
+    page,
+    person,
+    projectAuthorRef,
+    projectIdentityGraph,
+    projectPerson,
+    projectRobots,
+    projectSitemap,
+    projectWebSite,
+} from '@jterrazz/manifest';
+import type {
+    Channels,
+    Discovery,
+    IdentityGraph,
+    Languages,
+    PageDates,
+    PageDefinition,
+    PageKind,
+    PageProvider,
+    Person,
+    PersonNode,
+    PersonRef,
+    RobotsProjection,
+    SharingCard,
+    SiteDefinition,
+    SitemapEntry,
+    Voice,
+    WebSiteNode,
+} from '@jterrazz/manifest';
 import { createLlms, createRobots, createSitemap } from '@jterrazz/manifest/next';
 import { audit } from '@jterrazz/manifest/testing';
 
+const channels: Channels = { feed: false, llms: true };
+const discovery: Discovery = { aiCrawlers: 'blocked', hidden: [] };
+const identity: Person = person({ headline: 'Writer', name: 'Ada', occupation: 'Writer', profiles: [] });
+const languages: Languages = { all: ['en'], main: 'en' };
+const card: SharingCard = { image: '/card.png' };
+const voice: Voice = { description: 'Notes.' };
+
 const site: SiteDefinition = defineSite({
     address: 'https://site.test',
-    channels: { feed: false, llms: true },
-    discovery: { aiCrawlers: 'blocked', hidden: [] },
-    identity: person({ headline: 'Writer', name: 'Ada', occupation: 'Writer', profiles: [] }),
-    languages: { all: ['en'], main: 'en' },
-    sharing: { card: { image: '/card.png' } },
-    voice: { description: 'Notes.' },
+    channels,
+    discovery,
+    identity,
+    languages,
+    sharing: { card },
+    voice,
 });
 
-const pages: PageProvider = () => [
-    page({ description: 'Home.', kind: 'home', locales: ['en'], path: '', title: 'Home' }),
-];
+const kind: PageKind = 'home';
+const dates: PageDates = { modified: '2026-01-01' };
+const home: PageDefinition = page({ dates, description: 'Home.', kind, locales: ['en'], path: '', title: 'Home' });
+const pages: PageProvider = () => [home];
 
 const entries: SitemapEntry[] = projectSitemap(site, pages());
-const graphId: string = projectIdentityGraph(site)['@graph'][1]['@id'];
+const homePriority: number = KIND_DEFAULTS[kind].priority;
+const graph: IdentityGraph = projectIdentityGraph(site);
+const graphId: string = graph['@graph'][1]['@id'];
+const author: PersonRef = projectAuthorRef(site);
+const personNode: PersonNode = projectPerson(site);
+const websiteNode: WebSiteNode = projectWebSite(site);
+const robots: RobotsProjection = projectRobots(site);
 const llms: () => Response = createLlms(site, [pages]);
 createRobots(site);
 createSitemap(site, [pages]);
@@ -37,4 +80,4 @@ export function auditOf(website: WebsiteSpecification): void {
     audit.website(website, site);
 }
 
-export { entries, graphId, llms };
+export { author, entries, graphId, homePriority, llms, personNode, robots, websiteNode };

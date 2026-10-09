@@ -11,7 +11,7 @@ describe('identity', () => {
             .link('@jterrazz/manifest', packed())
             .exec('identity.mjs');
 
-        // Then - person() names its kind, the graph links the two nodes by id, and the optional fields appear exactly when declared
+        // Then - person() names its kind, the WebSite and the Person each projected alone and together in the graph, linked by id, and the optional fields appear exactly when declared
         expect(result.exitCode).toBe(0);
         expect(result.stdout).toMatch(`
             {
@@ -28,6 +28,38 @@ describe('identity', () => {
                     "@id": "https://site.test/#person",
                     "@type": "Person",
                     "name": "Ada Example",
+                    "url": "https://site.test"
+                },
+                "website": {
+                    "@id": "https://site.test/#website",
+                    "@type": "WebSite",
+                    "description": "Notes on software.",
+                    "inLanguage": [
+                        "en",
+                        "fr"
+                    ],
+                    "name": "Ada Example",
+                    "publisher": {
+                        "@id": "https://site.test/#person"
+                    },
+                    "url": "https://site.test"
+                },
+                "person": {
+                    "@id": "https://site.test/#person",
+                    "@type": "Person",
+                    "description": "Notes on software.",
+                    "email": "mailto:hi@site.test",
+                    "image": "https://site.test/portrait.png",
+                    "jobTitle": "Engineer",
+                    "knowsAbout": [
+                        "TypeScript",
+                        "Search"
+                    ],
+                    "name": "Ada Example",
+                    "sameAs": [
+                        "https://github.com/ada",
+                        "https://www.linkedin.com/in/ada"
+                    ],
                     "url": "https://site.test"
                 },
                 "graph": {
