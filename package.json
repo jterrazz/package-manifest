@@ -27,20 +27,19 @@
         }
     },
     "scripts": {
-        "build": "tsdown --config tsdown.config.ts",
+        "build": "typescript build",
         "lint": "typescript check",
         "lint:fix": "typescript fix",
         "test": "vitest --run"
     },
     "devDependencies": {
-        "@jterrazz/test": "^16.1.0",
-        "@jterrazz/typescript": "^10.3.1",
+        "@jterrazz/test": "file:../package-test",
+        "@jterrazz/typescript": "file:../package-typescript",
         "next": "^16.2.10",
-        "tsdown": "^0.23.0",
         "vitest": "^5.0.1"
     },
     "peerDependencies": {
-        "@jterrazz/test": ">=16",
+        "@jterrazz/test": "^17.0.0",
         "next": ">=15",
         "vitest": ">=5"
     },

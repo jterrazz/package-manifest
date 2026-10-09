@@ -1,7 +1,7 @@
 import type { WebsiteSpecification } from '@jterrazz/test';
 import { expect, test } from 'vitest';
 
-import type { SiteDefinition } from '../index.js';
+import type { SiteDefinition } from './index.js';
 
 /**
  * The manifest audit — every declared surface, verified on the rendered site
@@ -77,9 +77,9 @@ export const audit = {
 
             // Then - reachable, pointing at the canonical sitemap, hiding the declared paths
             expect(result.status).toBe(200);
-            expect(result.body).toContain(`Sitemap: ${site.address}/sitemap.xml`);
+            expect(result.body.text).toContain(`Sitemap: ${site.address}/sitemap.xml`);
             for (const hidden of site.discovery.hidden) {
-                expect(result.body).toContain(`Disallow: ${hidden}`);
+                expect(result.body.text).toContain(`Disallow: ${hidden}`);
             }
         });
 
@@ -125,7 +125,7 @@ export const audit = {
             const result = await website.visit('/');
 
             // Then - the person's name is in the title
-            expect(result.title).toContain(site.identity.name);
+            expect(result.title.text).toContain(site.identity.name);
         });
 
         test('quality/console-silence — the homepage renders without console errors', async () => {
@@ -133,7 +133,7 @@ export const audit = {
             const result = await website.visit('/');
 
             // Then - the error stream is empty
-            await expect(result.errors).toBeEmpty();
+            expect(result.errors.text).toBe('');
         });
     },
 };

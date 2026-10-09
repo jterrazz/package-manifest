@@ -1,10 +1,3 @@
-import { defineSpecConfig, unit } from '@jterrazz/test/vitest';
-import type { ViteUserConfig } from 'vitest/config';
+import { vitestConfig } from '@jterrazz/test/vitest';
 
-const config: ViteUserConfig = defineSpecConfig({
-    test: {
-        projects: [unit()],
-    },
-});
-
-export default config;
+export default await vitestConfig(import.meta.url);
