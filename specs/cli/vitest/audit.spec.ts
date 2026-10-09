@@ -145,7 +145,7 @@ describe('audit', () => {
             .link('@jterrazz/test')
             .link('vitest')
             .link('playwright')
-            .env({ SITE: 'welcoming,healthy' })
+            .env({ SITE: 'welcoming,healthy,channels' })
             .exec('node_modules/vitest/vitest.mjs run');
 
         // Then - every rule passes, the AI crawler policy among them
@@ -158,6 +158,74 @@ describe('audit', () => {
             passed discovery/ai-crawlers-policy — the declared AI policy is what robots.txt says
             passed channels/llms-index — llms.txt exists exactly when declared
             passed channels/feed — the feed exists exactly when declared
+            passed sharing/card-reachable — the sharing card image answers and is declared on the page
+            passed voice/title-pattern — the homepage title leads with the identity
+            passed quality/console-silence — the homepage renders without console errors
+        `);
+    });
+
+    test('a site declaring no channel passes by serving neither llms.txt nor a feed', async () => {
+        // Given - the healthy site declaring both channels off, serving no llms.txt and no feed
+        const result = await cli
+            .fixture(directory('./__fixtures__/consumer/'))
+            .link('@jterrazz/manifest', packed())
+            .link('@jterrazz/test')
+            .link('vitest')
+            .link('playwright')
+            .env({ SITE: 'quiet,healthy' })
+            .exec('node_modules/vitest/vitest.mjs run');
+
+        // Then - every rule passes, both channel rules among them
+        expect(result.exitCode).toBe(0);
+        expect(result.stdout).toMatch(`
+            passed manifest/canonical-host — the homepage canonical points at the declared address
+            passed manifest/hreflang-self-and-default — the homepage declares every locale and x-default
+            passed identity/single-person — exactly one Person entity, with the canonical @id
+            passed discovery/robots-serves-sitemap — robots.txt allows, hides, and names the sitemap
+            passed discovery/ai-crawlers-policy — the declared AI policy is what robots.txt says
+            passed channels/llms-index — llms.txt exists exactly when declared
+            passed channels/feed — the feed exists exactly when declared
+            passed sharing/card-reachable — the sharing card image answers and is declared on the page
+            passed voice/title-pattern — the homepage title leads with the identity
+            passed quality/console-silence — the homepage renders without console errors
+        `);
+    });
+
+    test('a site serving the channels it declares off fails both channel rules', async () => {
+        // Given - the healthy site declaring both channels off, yet serving llms.txt and a feed
+        const result = await cli
+            .fixture(directory('./__fixtures__/consumer/'))
+            .link('@jterrazz/manifest', packed())
+            .link('@jterrazz/test')
+            .link('vitest')
+            .link('playwright')
+            .env({ SITE: 'quiet,healthy,channels' })
+            .exec('node_modules/vitest/vitest.mjs run');
+
+        // Then - the two channel rules fail, each finding the surface answering where the declaration expects a 404
+        expect(result.exitCode).toBe(1);
+        expect(result.stdout).toMatch(`
+            passed manifest/canonical-host — the homepage canonical points at the declared address
+            passed manifest/hreflang-self-and-default — the homepage declares every locale and x-default
+            passed identity/single-person — exactly one Person entity, with the canonical @id
+            passed discovery/robots-serves-sitemap — robots.txt allows, hides, and names the sitemap
+            passed discovery/ai-crawlers-policy — the declared AI policy is what robots.txt says
+            failed channels/llms-index — llms.txt exists exactly when declared
+                - Expected
+                + Received
+
+                  {
+                -   "headed": false,
+                -   "status": 404,
+                +   "headed": true,
+                +   "status": 200,
+                  }
+            failed channels/feed — the feed exists exactly when declared
+                - Expected
+                + Received
+
+                - 404
+                + 200
             passed sharing/card-reachable — the sharing card image answers and is declared on the page
             passed voice/title-pattern — the homepage title leads with the identity
             passed quality/console-silence — the homepage renders without console errors
