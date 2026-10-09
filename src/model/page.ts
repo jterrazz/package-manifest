@@ -29,12 +29,12 @@ export type PageProvider = () => PageDefinition[];
 /** Per-kind projection defaults — one place, no per-page ceremony. */
 export const KIND_DEFAULTS: Record<
     PageKind,
-    { changeFrequency: 'monthly' | 'weekly'; feed: boolean; llms: boolean; priority: number }
+    { changeFrequency: 'monthly' | 'weekly'; priority: number }
 > = {
-    article: { changeFrequency: 'monthly', feed: true, llms: true, priority: 0.8 },
-    collection: { changeFrequency: 'weekly', feed: false, llms: false, priority: 0.9 },
-    gallery: { changeFrequency: 'monthly', feed: false, llms: false, priority: 0.6 },
-    home: { changeFrequency: 'weekly', feed: false, llms: false, priority: 1 },
-    profile: { changeFrequency: 'monthly', feed: false, llms: false, priority: 0.5 },
-    software: { changeFrequency: 'monthly', feed: false, llms: true, priority: 0.7 },
+    article: { changeFrequency: 'monthly', priority: 0.8 },
+    collection: { changeFrequency: 'weekly', priority: 0.9 },
+    gallery: { changeFrequency: 'monthly', priority: 0.6 },
+    home: { changeFrequency: 'weekly', priority: 1 },
+    profile: { changeFrequency: 'monthly', priority: 0.5 },
+    software: { changeFrequency: 'monthly', priority: 0.7 },
 };
