@@ -14,14 +14,14 @@ export const site = defineSite({
         topics: ['TypeScript', 'Search'],
     }),
     languages: { all: ['en', 'fr'], main: 'en' },
-    sharing: { card: { caption: 'Ada', height: 630, image: '/card.png', width: 1200 } },
-    voice: { brand: 'Ada', description: 'Notes on software.', titlePattern: '%s | Ada' },
+    sharing: { card: { image: '/card.png' } },
+    voice: { description: 'Notes on software.' },
 });
 
 export const pages = [
     page({ description: 'The home page.', kind: 'home', locales: ['en', 'fr'], path: '', title: 'Home' }),
     page({
-        dates: { modified: '2026-01-02', published: '2026-01-01' },
+        dates: { modified: '2026-01-02' },
         description: 'A bilingual article.',
         kind: 'article',
         locales: ['en', 'fr'],
@@ -29,7 +29,6 @@ export const pages = [
         title: 'Hello',
     }),
     page({
-        dates: { published: '2026-02-01' },
         description: 'An article in French only.',
         kind: 'article',
         locales: ['fr'],

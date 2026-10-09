@@ -26,14 +26,10 @@ export type Languages = {
     prefixMain?: boolean;
 };
 
-/** How links to the site look when shared — projected as Open Graph / Twitter Card. */
+/** The image a link to the site shows when shared — the audit's `sharing/card-reachable` rule reads it as the homepage's og:image. */
 export type SharingCard = {
-    /** Accessible description of the card image. */
-    caption: string;
-    /** Card image path — must really be `width`×`height`. */
+    /** Card image path, under the address. */
     image: string;
-    height: number;
-    width: number;
 };
 
 /** What crawlers may reach — projected as robots.txt. */
@@ -52,13 +48,10 @@ export type Channels = {
     llms: boolean;
 };
 
-/** The site's editorial voice — brand, title shape, default description. */
+/** The site's editorial voice. */
 export type Voice = {
-    brand: string;
-    /** The default description — homepage, identity graph, llms.txt intro. */
+    /** The default description — identity graph, llms.txt summary. */
     description: string;
-    /** Title pattern, `%s` replaced by the page title. */
-    titlePattern: string;
 };
 
 export type SiteDefinition = {

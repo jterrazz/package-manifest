@@ -10,8 +10,8 @@ const site: SiteDefinition = defineSite({
     discovery: { aiCrawlers: 'blocked', hidden: [] },
     identity: person({ headline: 'Writer', name: 'Ada', occupation: 'Writer', profiles: [] }),
     languages: { all: ['en'], main: 'en' },
-    sharing: { card: { caption: 'Ada', height: 630, image: '/card.png', width: 1200 } },
-    voice: { brand: 'Ada', description: 'Notes.', titlePattern: '%s | Ada' },
+    sharing: { card: { image: '/card.png' } },
+    voice: { description: 'Notes.' },
 });
 
 const pages: PageProvider = () => [

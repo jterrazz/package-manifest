@@ -9,6 +9,6 @@ export const site = defineSite({
     discovery: { aiCrawlers: served.includes('welcoming') ? 'welcome' : 'blocked', hidden: ['/api/', '/go/'] },
     identity: person({ headline: 'Problem solver', name: 'Ada Example', occupation: 'Engineer', profiles: [] }),
     languages: { all: ['en', 'fr'], main: 'en' },
-    sharing: { card: { caption: 'Ada', height: 630, image: '/card.png', width: 1200 } },
-    voice: { brand: 'Ada', description: 'Notes on software.', titlePattern: '%s | Ada' },
+    sharing: { card: { image: '/card.png' } },
+    voice: { description: 'Notes on software.' },
 });

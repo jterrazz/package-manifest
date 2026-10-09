@@ -1,6 +1,6 @@
 # @jterrazz/manifest
 
-Your site's presence, declared once. The manifest declares — identity, pages, discovery — the projections derive every surface from it (metadata, identity JSON-LD, sitemap, robots.txt, llms.txt), and the audit (run through `specification.website()` from `@jterrazz/test`) verifies the live site against it.
+Your site's presence, declared once. The manifest declares — identity, pages, discovery — the projections derive every machine-facing surface from it (identity JSON-LD, sitemap, robots.txt, llms.txt), and the audit (run through `specification.website()` from `@jterrazz/test`) verifies the live site against it.
 
 ## Install
 
@@ -18,8 +18,8 @@ export const site = defineSite({
     address: 'https://example.com',
     languages: { all: ['en', 'fr'], main: 'en' },
     identity: person({ name: '…', headline: '…', occupation: '…', profiles: [] }),
-    voice: { brand: '…', description: '…', titlePattern: '%s | …' },
-    sharing: { card: { image: '/og.png', caption: '…', width: 1200, height: 630 } },
+    voice: { description: '…' },
+    sharing: { card: { image: '/og.png' } },
     discovery: { hidden: ['/api/'], aiCrawlers: 'welcome' },
     channels: { feed: true, llms: true },
 });

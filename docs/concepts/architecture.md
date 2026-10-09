@@ -18,7 +18,7 @@
 
 The `.` entry re-exports two layers, and the dependency runs one way:
 
-- **The model** (`src/model/`) speaks the language of intent: `defineSite`, `person`, `page`, and the URL policy (`urlFor`, `alternatesFor`). It names no standard — no Open Graph, no schema.org, no sitemap shape.
+- **The model** (`src/model/`) speaks the language of intent: `defineSite`, `person`, `page`, and the URL policy (`urlFor`, `alternatesFor`). It names no standard — no Open Graph, no schema.org, no sitemap shape — and holds only what a projection or an audit rule reads: a field nothing reads is not declared.
 - **The projections** (`src/projections/`) speak the language of standards, one file per surface, each reading the model and never the other way: the identity graph (`json-ld.ts`), the sitemap (`sitemap.ts`), robots.txt (`robots.ts`) and llms.txt (`llms.ts`). What each produces is [Projections](../reference/projections.md)'s.
 
 Every page carries a `PageKind` (`article`, `collection`, `gallery`, `home`, `profile`, `software`), and `KIND_DEFAULTS` is the one table that turns a kind into a sitemap priority and change frequency: a page declared is a page fully projected, with no per-page ceremony at the call site.
