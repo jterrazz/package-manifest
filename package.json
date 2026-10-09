@@ -36,6 +36,7 @@
         "@jterrazz/test": "file:../package-test",
         "@jterrazz/typescript": "file:../package-typescript",
         "next": "^16.2.10",
+        "playwright": "^1.63.0",
         "vitest": "^5.0.1"
     },
     "peerDependencies": {
