@@ -32,7 +32,7 @@ describe('audit', () => {
     });
 
     test('a site that breaks every declared surface fails every rule, each naming what it found', async () => {
-        // Given - the same audit against a site with the wrong canonical, one alternate of three, a second Person, a robots.txt hiding one path of two and naming neither the sitemap nor the AI crawlers its policy blocks, no llms.txt, no feed, no card, a title without the name and a console error and a credited image without license
+        // Given - the same audit against a site with the wrong canonical, one alternate of three, a second Person, a robots.txt hiding one path of two and naming neither the sitemap nor the AI crawlers its policy blocks, no llms.txt, no feed, no card, a title without the name and a console error and credited images without license on the homepage and on a gallery the sitemap lists
         const result = await cli
             .fixture(directory('./__fixtures__/consumer/'))
             .link('@jterrazz/manifest', packed())
@@ -147,18 +147,44 @@ describe('audit', () => {
                 +       "license",
                 +       "acquireLicensePage",
                 +     ],
+                +     "page": "/",
                 +   },
                 +   {
                 +     "contentUrl": "https://site.test/photos/2.jpg",
                 +     "missing": [
                 +       "acquireLicensePage",
                 +     ],
+                +     "page": "/",
                 +   },
                 +   {
                 +     "contentUrl": "https://site.test/photos/3.jpg",
                 +     "missing": [
                 +       "license",
                 +     ],
+                +     "page": "/",
+                +   },
+                +   {
+                +     "contentUrl": "https://site.test/photos/4.jpg",
+                +     "missing": [
+                +       "acquireLicensePage",
+                +     ],
+                +     "page": "/",
+                +   },
+                +   {
+                +     "contentUrl": "https://site.test/photos/5.jpg",
+                +     "missing": [
+                +       "license",
+                +       "acquireLicensePage",
+                +     ],
+                +     "page": "/gallery.html",
+                +   },
+                +   {
+                +     "contentUrl": "https://site.test/photos/6.jpg",
+                +     "missing": [
+                +       "license",
+                +       "acquireLicensePage",
+                +     ],
+                +     "page": "/gallery.html",
                 +   },
                 + ]
         `);

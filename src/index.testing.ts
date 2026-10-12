@@ -33,14 +33,32 @@ function imageObjects(value: unknown): Record<string, unknown>[] {
     }
     // invariant: a list is a record too, so its values are its items.
     const found = Object.values(value).flatMap(imageObjects);
-    return value['@type'] === 'ImageObject' ? [value, ...found] : found;
+    return [value['@type']].flat().includes('ImageObject') ? [value, ...found] : found;
 }
 
-const CREDIT_FIELDS = ['creator', 'creditText', 'copyrightNotice'];
+// invariant: Google makes an image eligible by one of these fields, so each of them asks for the license pair.
+const ELIGIBLE_FIELDS = ['creator', 'creditText', 'copyrightNotice', 'license'];
 const LICENSE_FIELDS = ['license', 'acquireLicensePage'];
+
+function isPresent(value: unknown): boolean {
+    return value !== undefined && value !== null;
+}
 
 // Stryker disable next-line StringLiteral: `''` and `'/'` both visit the base URL, the homepage
 const HOMEPAGE = '/';
+
+// invariant: the pages that can carry images are the ones the sitemap lists; a site serving none answers 404 with no `<loc>`, and is audited on its homepage alone.
+async function auditedPages(website: WebsiteSpecification): Promise<string[]> {
+    const sitemap = await website.fetch('/sitemap.xml');
+    const listed = [...sitemap.body.text.matchAll(/<loc>(?<loc>[^<]+)<\/loc>/gu)].map(
+        ({ groups }) => {
+            // Stryker disable next-line OptionalChaining,StringLiteral: the pattern's one named group is in every match
+            const { pathname, search } = new URL(groups?.loc ?? '');
+            return `${pathname}${search}`;
+        },
+    );
+    return [...new Set([HOMEPAGE, ...listed])];
+}
 
 const canonicalHost: Rule = (website, site) => {
     test('manifest/canonical-host — the homepage canonical points at the declared address', async () => {
@@ -169,17 +187,23 @@ const consoleSilence: Rule = (website) => {
 
 const creditedImagesLicensed: Rule = (website) => {
     test('images/credit-licensed — an image crediting its creator carries its license and where to acquire it', async () => {
-        // Given - the rendered homepage's structured data
-        const result = await website.visit(HOMEPAGE);
+        // Given - the structured data of the homepage and of every page the sitemap lists
+        const unlicensed = [];
+        for (const page of await auditedPages(website)) {
+            const result = await website.visit(page);
+            unlicensed.push(
+                ...imageObjects(result.jsonLd.value)
+                    .filter((image) => ELIGIBLE_FIELDS.some((field) => isPresent(image[field])))
+                    .map((image) => ({
+                        contentUrl: image.contentUrl,
+                        missing: LICENSE_FIELDS.filter((field) => !isPresent(image[field])),
+                        page,
+                    }))
+                    .filter((image) => image.missing.length > 0),
+            );
+        }
 
-        // Then - no ImageObject crediting a creator lacks license or acquireLicensePage (Search Console: Image metadata)
-        const unlicensed = imageObjects(result.jsonLd.value)
-            .filter((image) => CREDIT_FIELDS.some((field) => image[field] !== undefined))
-            .map((image) => ({
-                contentUrl: image.contentUrl,
-                missing: LICENSE_FIELDS.filter((field) => image[field] === undefined),
-            }))
-            .filter((image) => image.missing.length > 0);
+        // Then - no ImageObject crediting a creator or naming a license lacks license or acquireLicensePage (Search Console: Image metadata)
         expect(unlicensed).toStrictEqual([]);
     });
 };
