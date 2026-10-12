@@ -2,6 +2,7 @@ export {
     type Channels,
     defineSite,
     type Discovery,
+    type Images,
     type Languages,
     person,
     type Person,
@@ -21,11 +22,14 @@ export { alternatesFor, urlFor } from './model/urls.js';
 
 export {
     type IdentityGraph,
+    type ImageObjectNode,
+    type ImageObjectOptions,
     personId,
     type PersonNode,
     type PersonRef,
     projectAuthorRef,
     projectIdentityGraph,
+    projectImageObject,
     projectPerson,
     projectWebSite,
     websiteId,

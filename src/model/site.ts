@@ -54,12 +54,20 @@ export type Voice = {
     description: string;
 };
 
+/** The images the site publishes. */
+export type Images = {
+    /** The license URL every published image is under, unless it says otherwise. */
+    license: string;
+};
+
 export type SiteDefinition = {
     /** THE canonical origin — one host, no trailing slash. Everything derives from it. */
     address: string;
     channels: Channels;
     discovery: Discovery;
     identity: Person;
+    /** The default image license — declared once, read by `projectImageObject`. */
+    images?: Images;
     languages: Languages;
     sharing: { card: SharingCard };
     voice: Voice;

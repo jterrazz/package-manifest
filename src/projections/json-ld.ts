@@ -96,3 +96,50 @@ export function projectIdentityGraph(site: SiteDefinition): IdentityGraph {
         '@graph': [projectWebSite(site), projectPerson(site)],
     };
 }
+
+/** What a page declares about one image it publishes. */
+export type ImageObjectOptions = {
+    /** Where a person acquires a license for the image — the photographer's profile or the stock page. */
+    acquireLicensePage: string;
+    /** Absolute URL of the image file. */
+    contentUrl: string;
+    description: string;
+};
+
+/** An image credited to the Person, with the license a search engine asks of a credited image. */
+export type ImageObjectNode = {
+    '@type': 'ImageObject';
+    acquireLicensePage: string;
+    contentUrl: string;
+    copyrightNotice: string;
+    creator: PersonRef;
+    creditText: string;
+    description: string;
+    license: string;
+    name: string;
+    thumbnailUrl: string;
+};
+
+/** An ImageObject credited to the Person, under the site's declared image license. */
+export function projectImageObject(
+    site: SiteDefinition,
+    options: ImageObjectOptions,
+): ImageObjectNode {
+    if (site.images === undefined) {
+        throw new Error(
+            'projectImageObject needs a license: declare `images: { license }` on defineSite',
+        );
+    }
+    return {
+        '@type': 'ImageObject',
+        acquireLicensePage: options.acquireLicensePage,
+        contentUrl: options.contentUrl,
+        copyrightNotice: `© ${site.identity.name}`,
+        creator: projectAuthorRef(site),
+        creditText: site.identity.name,
+        description: options.description,
+        license: site.images.license,
+        name: options.description,
+        thumbnailUrl: options.contentUrl,
+    };
+}

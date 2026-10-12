@@ -6,6 +6,7 @@ import {
     person,
     projectAuthorRef,
     projectIdentityGraph,
+    projectImageObject,
     projectPerson,
     projectRobots,
     projectSitemap,
@@ -15,6 +16,9 @@ import type {
     Channels,
     Discovery,
     IdentityGraph,
+    ImageObjectNode,
+    ImageObjectOptions,
+    Images,
     Languages,
     PageDates,
     PageDefinition,
@@ -38,6 +42,7 @@ const discovery: Discovery = { aiCrawlers: 'blocked', hidden: [] };
 const identity: Person = person({ headline: 'Writer', name: 'Ada', occupation: 'Writer', profiles: [] });
 const languages: Languages = { all: ['en'], main: 'en' };
 const card: SharingCard = { image: '/card.png' };
+const images: Images = { license: 'https://site.test/license' };
 const voice: Voice = { description: 'Notes.' };
 
 const site: SiteDefinition = defineSite({
@@ -45,6 +50,7 @@ const site: SiteDefinition = defineSite({
     channels,
     discovery,
     identity,
+    images,
     languages,
     sharing: { card },
     voice,
@@ -62,6 +68,8 @@ const graphId: string = graph['@graph'][1]['@id'];
 const author: PersonRef = projectAuthorRef(site);
 const personNode: PersonNode = projectPerson(site);
 const websiteNode: WebSiteNode = projectWebSite(site);
+const photo: ImageObjectOptions = { acquireLicensePage: 'https://stock.test/@ada', contentUrl: 'https://site.test/1.jpg', description: 'x' };
+const image: ImageObjectNode = projectImageObject(site, photo);
 const robots: RobotsProjection = projectRobots(site);
 const llms: () => Response = createLlms(site, [pages]);
 createRobots(site);
@@ -80,4 +88,4 @@ export function auditOf(website: WebsiteSpecification): void {
     audit.website(website, site);
 }
 
-export { author, entries, graphId, homePriority, llms, personNode, robots, websiteNode };
+export { author, entries, graphId, homePriority, image, llms, personNode, robots, websiteNode };

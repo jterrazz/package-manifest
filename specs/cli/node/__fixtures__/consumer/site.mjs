@@ -13,6 +13,7 @@ export const site = defineSite({
         profiles: ['https://github.com/ada', 'https://www.linkedin.com/in/ada'],
         topics: ['TypeScript', 'Search'],
     }),
+    images: { license: 'https://site.test/license' },
     languages: { all: ['en', 'fr'], main: 'en' },
     sharing: { card: { image: '/card.png' } },
     voice: { description: 'Notes on software.' },

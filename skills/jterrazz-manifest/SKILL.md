@@ -13,6 +13,7 @@ The site's presence is declared ONCE in `manifest.config.ts` (`defineSite`, `per
 - Any framework calls the projections in its own routes: `projectSitemap(site, pages)`, `projectRobots(site)`, `projectLlms(site, pages)` (jterrazz-web, on Astro, does).
 - On Next.js, routes become one-liners: `app/sitemap.ts` → `export default createSitemap(site, providers)`; `app/robots.ts` → `createRobots(site)`; `app/llms.txt/route.ts` → `export const GET = createLlms(site, providers)` (all from `@jterrazz/manifest/next`).
 - The identity `@graph` renders once from the root layout: `projectIdentityGraph(site)`; authored content references the Person via `projectAuthorRef(site)`.
+- Credited images: declare `images: { license }` once on `defineSite`, then `projectImageObject(site, { contentUrl, description, acquireLicensePage })` per image — Google wants `license` and `acquireLicensePage` on every image crediting its creator.
 - **Providers are the only bridge to content**: the app maps its repositories to `page({ kind, path, locales, … })` declarations — the package never reads content itself. Kinds (`home | article | collection | software | gallery | profile`) drive every surface default.
 
 ## The audit
