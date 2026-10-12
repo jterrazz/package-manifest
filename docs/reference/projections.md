@@ -19,7 +19,7 @@ The five surfaces `src/projections/` derives from one `SiteDefinition` and its `
 
 ## Image JSON-LD
 
-`projectImageObject(site, { contentUrl, description, acquireLicensePage })` projects an `ImageObject` credited to the Person: `creator` is the author reference, `creditText` and `copyrightNotice` carry the identity's name, and `license` is the site's `images.license`, declared once on `defineSite`. `acquireLicensePage` is the one thing each image says for itself — where its license is acquired — because Google asks `license` and `acquireLicensePage` together of an image that credits its creator (Search Console alert WNC-10030322). A site that declares no `images` is refused by name when it projects an image: a credited image without a license is the finding the [audit](audit.md) reports.
+`projectImageObject(site, { contentUrl, description, acquireLicensePage })` projects an `ImageObject` credited to the Person: `creator` is the author reference, `creditText` and `copyrightNotice` carry the identity's name, and `license` is the site's `images.license`, declared once on `defineSite`. `acquireLicensePage` is the one thing each image says for itself — where its license is acquired — because Google recommends both and Search Console warns when they are missing (alert WNC-10030322); the package requires them of every image it projects. A site that declares no `images` is refused by name when it projects an image: a credited image without a license is the finding the [audit](audit.md) reports.
 
 ## Sitemap
 

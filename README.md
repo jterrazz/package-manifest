@@ -1,6 +1,6 @@
 # @jterrazz/manifest
 
-Your site's presence, declared once. The manifest declares — identity, pages, discovery — the projections derive every machine-facing surface from it (identity JSON-LD, sitemap, robots.txt, llms.txt), and the audit (run through `specification.website()` from `@jterrazz/test`) verifies the live site against it.
+Your site's presence, declared once. The manifest declares — identity, pages, discovery — the projections derive every machine-facing surface from it (identity JSON-LD, image JSON-LD, sitemap, robots.txt, llms.txt), and the audit (run through `specification.website()` from `@jterrazz/test`) verifies the live site against it.
 
 ## Install
 
@@ -56,7 +56,7 @@ The manual lives in [`docs/`](docs/README.md):
 - [Develop](docs/guides/develop.md) — the declaration, the gestures, where a new file goes.
 - [Test](docs/guides/test.md) — the specs from the tarball and the audit spec.
 - [Release](docs/guides/release.md) — what publishes the package, and its peer range.
-- [Projections](docs/reference/projections.md) — URL policy, identity JSON-LD, sitemap, robots, llms.txt.
+- [Projections](docs/reference/projections.md) — URL policy, identity and image JSON-LD, sitemap, robots, llms.txt.
 - [Audit](docs/reference/audit.md) — the eleven rules of `audit.website`.
 
 MIT © [Jean-Baptiste Terrazzoni](https://github.com/jterrazz)

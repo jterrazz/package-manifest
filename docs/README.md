@@ -18,10 +18,10 @@ A site's presence declared once, projected into every machine-facing surface, an
 
 ## Reference
 
-| Page                                    | Answers                                                                      |
-| --------------------------------------- | ---------------------------------------------------------------------------- |
-| [Projections](reference/projections.md) | The URL policy, and what identity JSON-LD, sitemap, robots and llms.txt hold |
-| [Audit](reference/audit.md)             | The eleven rules of `audit.website`, and how a consumer runs them            |
+| Page                                    | Answers                                                                                |
+| --------------------------------------- | -------------------------------------------------------------------------------------- |
+| [Projections](reference/projections.md) | The URL policy, and what identity and image JSON-LD, sitemap, robots and llms.txt hold |
+| [Audit](reference/audit.md)             | The eleven rules of `audit.website`, and how a consumer runs them                      |
 
 ## Decisions
 
