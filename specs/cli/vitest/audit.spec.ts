@@ -14,7 +14,7 @@ describe('audit', () => {
             .link('playwright')
             .exec('node_modules/vitest/vitest.mjs run');
 
-        // Then - each of the ten rules passes
+        // Then - each of the eleven rules passes
         expect(result.exitCode).toBe(0);
         expect(result.stdout).toMatch(`
             passed manifest/canonical-host — the homepage canonical points at the declared address
@@ -27,11 +27,12 @@ describe('audit', () => {
             passed sharing/card-reachable — the sharing card image answers and is declared on the page
             passed identity/named-in-title — the homepage title names the identity
             passed quality/console-silence — the homepage renders without console errors
+            passed images/credit-licensed — an image crediting its creator carries its license and where to acquire it
         `);
     });
 
     test('a site that breaks every declared surface fails every rule, each naming what it found', async () => {
-        // Given - the same audit against a site with the wrong canonical, one alternate of three, a second Person, a robots.txt hiding one path of two and naming neither the sitemap nor the AI crawlers its policy blocks, no llms.txt, no feed, no card, a title without the name and a console error
+        // Given - the same audit against a site with the wrong canonical, one alternate of three, a second Person, a robots.txt hiding one path of two and naming neither the sitemap nor the AI crawlers its policy blocks, no llms.txt, no feed, no card, a title without the name and a console error and a credited image without license
         const result = await cli
             .fixture(directory('./__fixtures__/consumer/'))
             .link('@jterrazz/manifest', packed())
@@ -41,7 +42,7 @@ describe('audit', () => {
             .env({ SITE: 'broken' })
             .exec('node_modules/vitest/vitest.mjs run');
 
-        // Then - each of the ten rules fails, with the evidence it read
+        // Then - each of the eleven rules fails, with the evidence it read
         expect(result.exitCode).toBe(1);
         expect(result.stdout).toMatch(`
             failed manifest/canonical-host — the homepage canonical points at the declared address
@@ -134,6 +135,32 @@ describe('audit', () => {
                 + Received
 
                 + hydration failed
+            failed images/credit-licensed — an image crediting its creator carries its license and where to acquire it
+                - Expected
+                + Received
+
+                - []
+                + [
+                +   {
+                +     "contentUrl": "https://site.test/photos/1.jpg",
+                +     "missing": [
+                +       "license",
+                +       "acquireLicensePage",
+                +     ],
+                +   },
+                +   {
+                +     "contentUrl": "https://site.test/photos/2.jpg",
+                +     "missing": [
+                +       "acquireLicensePage",
+                +     ],
+                +   },
+                +   {
+                +     "contentUrl": "https://site.test/photos/3.jpg",
+                +     "missing": [
+                +       "license",
+                +     ],
+                +   },
+                + ]
         `);
     });
 
@@ -161,6 +188,7 @@ describe('audit', () => {
             passed sharing/card-reachable — the sharing card image answers and is declared on the page
             passed identity/named-in-title — the homepage title names the identity
             passed quality/console-silence — the homepage renders without console errors
+            passed images/credit-licensed — an image crediting its creator carries its license and where to acquire it
         `);
     });
 
@@ -188,6 +216,7 @@ describe('audit', () => {
             passed sharing/card-reachable — the sharing card image answers and is declared on the page
             passed identity/named-in-title — the homepage title names the identity
             passed quality/console-silence — the homepage renders without console errors
+            passed images/credit-licensed — an image crediting its creator carries its license and where to acquire it
         `);
     });
 
@@ -229,6 +258,7 @@ describe('audit', () => {
             passed sharing/card-reachable — the sharing card image answers and is declared on the page
             passed identity/named-in-title — the homepage title names the identity
             passed quality/console-silence — the homepage renders without console errors
+            passed images/credit-licensed — an image crediting its creator carries its license and where to acquire it
         `);
     });
 });

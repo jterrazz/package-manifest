@@ -25,7 +25,21 @@ function jsonLdNodes(blocks: unknown): Record<string, unknown>[] {
         });
 }
 
-// Stryker disable next-line StringLiteral: `''` and `'/'` both visit the base URL, the homepage
+// invariant: an ImageObject sits anywhere in the tree (a collection's items, an article's image), so the walk descends every value.
+function imageObjects(value: unknown): Record<string, unknown>[] {
+    if (!isRecord(value)) {
+        // Stryker disable next-line ArrayDeclaration: a string standing in for a primitive reads no credit field, so the filter drops it
+        return [];
+    }
+    // invariant: a list is a record too, so its values are its items.
+    const found = Object.values(value).flatMap(imageObjects);
+    return value['@type'] === 'ImageObject' ? [value, ...found] : found;
+}
+
+const CREDIT_FIELDS = ['creator', 'creditText', 'copyrightNotice'];
+const LICENSE_FIELDS = ['license', 'acquireLicensePage'];
+
+// Stryker disable next-line StringLiteral: `''`''` and `'/'` both visit the base URL, the homepage
 const HOMEPAGE = '/';
 
 const canonicalHost: Rule = (website, site) => {
@@ -153,6 +167,23 @@ const consoleSilence: Rule = (website) => {
     });
 };
 
+const creditedImagesLicensed: Rule = (website) => {
+    test('images/credit-licensed — an image crediting its creator carries its license and where to acquire it', async () => {
+        // Given - the rendered homepage's structured data
+        const result = await website.visit(HOMEPAGE);
+
+        // Then - no ImageObject crediting a creator lacks license or acquireLicensePage (Search Console: Image metadata)
+        const unlicensed = imageObjects(result.jsonLd.value)
+            .filter((image) => CREDIT_FIELDS.some((field) => image[field] !== undefined))
+            .map((image) => ({
+                contentUrl: image.contentUrl,
+                missing: LICENSE_FIELDS.filter((field) => image[field] === undefined),
+            }))
+            .filter((image) => image.missing.length > 0);
+        expect(unlicensed).toStrictEqual([]);
+    });
+};
+
 const RULES: Rule[] = [
     canonicalHost,
     hreflangSelfAndDefault,
@@ -164,6 +195,7 @@ const RULES: Rule[] = [
     cardReachable,
     namedInTitle,
     consoleSilence,
+    creditedImagesLicensed,
 ];
 
 /** The manifest audit: one vitest test per rule, verifying a rendered site against its declaration. */

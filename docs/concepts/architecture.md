@@ -31,10 +31,10 @@ The package never reads content. A consumer implements `PageProvider`, a functio
 
 ## The audit entry
 
-`src/index.testing.ts` exports `audit`, a closed namespace in the shape of `@jterrazz/test`'s `specification`: one method, `audit.website(website, site)`, no options and no skip list — the declaration itself conditions the rules. It registers ten vitest tests in the consumer's own website spec, each driving the `WebsiteSpecification` handle the consumer built. This entry is the one place production code imports test packages; `jterrazz.config.ts` allows those two (`test.production.allow`), with the reason each is run — for the whole package, since the allow cannot name an entry ([Develop § The declaration](../guides/develop.md#the-declaration)).
+`src/index.testing.ts` exports `audit`, a closed namespace in the shape of `@jterrazz/test`'s `specification`: one method, `audit.website(website, site)`, no options and no skip list — the declaration itself conditions the rules. It registers eleven vitest tests in the consumer's own website spec, each driving the `WebsiteSpecification` handle the consumer built. This entry is the one place production code imports test packages; `jterrazz.config.ts` allows those two (`test.production.allow`), with the reason each is run — for the whole package, since the allow cannot name an entry ([Develop § The declaration](../guides/develop.md#the-declaration)).
 
 ## Related
 
 - [Develop](../guides/develop.md) — where a new file goes when it adds to one of these layers.
 - [Projections](../reference/projections.md) — what each projection produces.
-- [Audit](../reference/audit.md) — the ten rules, and how a consumer runs them.
+- [Audit](../reference/audit.md) — the eleven rules, and how a consumer runs them.
