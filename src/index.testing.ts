@@ -39,7 +39,7 @@ function imageObjects(value: unknown): Record<string, unknown>[] {
 const CREDIT_FIELDS = ['creator', 'creditText', 'copyrightNotice'];
 const LICENSE_FIELDS = ['license', 'acquireLicensePage'];
 
-// Stryker disable next-line StringLiteral: `''`''` and `'/'` both visit the base URL, the homepage
+// Stryker disable next-line StringLiteral: `''` and `'/'` both visit the base URL, the homepage
 const HOMEPAGE = '/';
 
 const canonicalHost: Rule = (website, site) => {
