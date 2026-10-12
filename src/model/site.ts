@@ -56,7 +56,7 @@ export type Voice = {
 
 /** The images the site publishes. */
 export type Images = {
-    /** The license URL every published image is under, unless it says otherwise. */
+    /** The license URL every image the site projects is published under. */
     license: string;
 };
 
