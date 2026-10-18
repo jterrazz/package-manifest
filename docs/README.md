@@ -1,4 +1,4 @@
-# @jterrazz/manifest — the manual
+# The @jterrazz/manifest manual
 
 A site's presence declared once, projected into every machine-facing surface, and audited on the live site. What the package is and how a site starts using it is the repository's README; this page lists every page of the manual, by what the reader came to do.
 

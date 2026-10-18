@@ -4,11 +4,11 @@ The five surfaces `src/projections/` derives from one `SiteDefinition` and its `
 
 ## URL policy
 
-`src/model/urls.ts` builds every URL. `urlFor(site, path, locale)` prefixes the path with its locale, except for the main locale unless `languages.prefixMain` is `true`. `alternatesFor(site, page)` gives one hreflang entry per locale the page exists in, plus `x-default` pointing at the main locale's URL — only when the page exists in the main locale, so no alternate names a page that is not there. Every projection below calls into this file rather than building a URL itself.
+`src/model/urls.ts` builds every URL. `urlFor(site, path, locale)` prefixes the path with its locale, except for the main locale unless `languages.prefixMain` is `true`. `alternatesFor(site, page)` gives one hreflang entry per locale the page exists in, plus `x-default` pointing at the main locale's URL. That entry is given only when the page exists in the main locale, so no alternate names a page that is not there. Every projection below calls into this file rather than building a URL itself.
 
 ## Identity JSON-LD
 
-`src/projections/json-ld.ts` projects one `Person` and one `WebSite`, each at a stable `@id` — `personId(site)` is `<address>/#person`, `websiteId(site)` is `<address>/#website`:
+`src/projections/json-ld.ts` projects one `Person` and one `WebSite`, each at a stable `@id`: `personId(site)` is `<address>/#person`, `websiteId(site)` is `<address>/#website`:
 
 | Function               | Produces                                                                                               |
 | ---------------------- | ------------------------------------------------------------------------------------------------------ |
@@ -19,11 +19,11 @@ The five surfaces `src/projections/` derives from one `SiteDefinition` and its `
 
 ## Image JSON-LD
 
-`projectImageObject(site, { contentUrl, description, acquireLicensePage })` projects an `ImageObject` credited to the Person: `creator` is the author reference, `creditText` and `copyrightNotice` carry the identity's name, and `license` is the site's `images.license`, declared once on `defineSite`. `acquireLicensePage` is the one thing each image says for itself — where its license is acquired — because Google recommends both and Search Console warns when they are missing (alert WNC-10030322); the package requires them of every image it projects. A site that declares no `images` is refused by name when it projects an image: a credited image without a license is the finding the [audit](audit.md) reports.
+`projectImageObject(site, { contentUrl, description, acquireLicensePage })` projects an `ImageObject` credited to the Person: `creator` is the author reference, `creditText` and `copyrightNotice` carry the identity's name, and `license` is the site's `images.license`, declared once on `defineSite`. `acquireLicensePage` is the one thing each image says for itself (where its license is acquired), because Google recommends both and Search Console warns when they are missing (alert WNC-10030322); the package requires them of every image it projects. A site that declares no `images` is refused by name when it projects an image: a credited image without a license is the finding the [audit](audit.md) reports.
 
 ## Sitemap
 
-`projectSitemap(site, pages)` emits one entry per page per locale it exists in — a page declared in no locale emits none. Each entry carries the page's alternates (the same cluster for every locale of a page), the `changeFrequency` and `priority` of its kind from `KIND_DEFAULTS`, and `lastModified` only when the page declares `dates.modified`: the projection never makes a date up.
+`projectSitemap(site, pages)` emits one entry per page per locale it exists in; a page declared in no locale emits none. Each entry carries the page's alternates (the same cluster for every locale of a page), the `changeFrequency` and `priority` of its kind from `KIND_DEFAULTS`, and `lastModified` only when the page declares `dates.modified`: the projection never makes a date up.
 
 | Kind         | Priority | Change frequency |
 | ------------ | -------- | ---------------- |
@@ -36,7 +36,7 @@ The five surfaces `src/projections/` derives from one `SiteDefinition` and its `
 
 ## Robots
 
-`projectRobots(site)` always opens on one rule for every agent, allowing `/` and disallowing the declared `discovery.hidden` paths, and names `<address>/sitemap.xml`. Under `discovery.aiCrawlers: 'blocked'` it adds a full disallow for each of seven crawlers — `anthropic-ai`, `ChatGPT-User`, `ClaudeBot`, `Google-Extended`, `GPTBot`, `OAI-SearchBot`, `PerplexityBot`; `'welcome'` names none of them.
+`projectRobots(site)` always opens on one rule for every agent, allowing `/` and disallowing the declared `discovery.hidden` paths, and names `<address>/sitemap.xml`. Under `discovery.aiCrawlers: 'blocked'` it adds a full disallow for each of seven crawlers: `anthropic-ai`, `ChatGPT-User`, `ClaudeBot`, `Google-Extended`, `GPTBot`, `OAI-SearchBot`, `PerplexityBot`. `'welcome'` names none of them.
 
 ## llms.txt
 
@@ -46,5 +46,5 @@ The summary paragraph and the photography link are written for jterrazz.com: eve
 
 ## Related
 
-- [Architecture](../concepts/architecture.md) — how the projections sit above the model.
-- [Audit](audit.md) — the rules that verify these surfaces on a live site.
+- [Architecture](../concepts/architecture.md): how the projections sit above the model.
+- [Audit](audit.md): the rules that verify these surfaces on a live site.

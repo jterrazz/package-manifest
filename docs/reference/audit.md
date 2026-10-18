@@ -12,7 +12,7 @@ import { website } from '../website.specification.js';
 audit.website(website, site);
 ```
 
-There are no options and no skip list: the declaration conditions the rules — `channels/feed` asks for a feed exactly when `channels.feed` is declared. Each rule is a test named after what it guards, so a failure reads as a finding: the rule, then what the site answered.
+There are no options and no skip list: the declaration conditions the rules, so `channels/feed` asks for a feed exactly when `channels.feed` is declared. Each rule is a test named after what it guards, so a failure reads as a finding: the rule, then what the site answered.
 
 | Rule                                 | Passes when                                                                                                                                                                                                |
 | ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -34,5 +34,5 @@ The rules are written against `@jterrazz/test` 17's result accessors, its peer r
 
 ## Related
 
-- [Projections](projections.md) — what the surfaces the rules read hold, when a site projects them.
-- [Test](../guides/test.md) — how this package proves the rules pass and fail.
+- [Projections](projections.md): what the surfaces the rules read hold, when a site projects them.
+- [Test](../guides/test.md): how this package proves the rules pass and fail.

@@ -1,10 +1,10 @@
 # Release
 
-This repository ships one thing: the npm package `@jterrazz/manifest`, published to the public registry. There is no service, no image and no infrastructure of its own — releasing it is the whole of shipping it, and this guide is how it is cut and who cuts it.
+This repository ships one thing: the npm package `@jterrazz/manifest`, published to the public registry. There is no service, no image and no infrastructure of its own: releasing it is the whole of shipping it, and this guide is how it is cut and who cuts it.
 
 ## What a merge to `main` does
 
-Nothing that reaches a consumer. `.github/workflows/validate.yaml` runs on every push and pull request to `main` and calls the shared `jterrazz-actions` validation workflow — build, lint, test, mutation — with `browsers: true`, since the audit spec renders pages in a headless Chromium. A green `main` is a publishable tree, not a published one.
+Nothing that reaches a consumer. `.github/workflows/validate.yaml` runs on every push and pull request to `main` and calls the shared `jterrazz-actions` validation workflow (build, lint, test, mutation) with `browsers: true`, since the audit spec renders pages in a headless Chromium. A green `main` is a publishable tree, not a published one.
 
 ## What publishes
 
@@ -25,5 +25,5 @@ The `./testing` entry is written against `@jterrazz/test`'s accessors, so its pe
 
 ## Related
 
-- [Test](test.md) — what `validate.yaml` runs.
-- [Develop](develop.md) — the gates a merge must pass.
+- [Test](test.md): what `validate.yaml` runs.
+- [Develop](develop.md): the gates a merge must pass.
