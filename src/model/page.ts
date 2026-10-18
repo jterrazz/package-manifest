@@ -9,7 +9,7 @@ export type PageDefinition = {
     dates?: PageDates;
     description: string;
     kind: PageKind;
-    /** The locales this page genuinely exists in — drives exact hreflang. */
+    /** The locales this page genuinely exists in, which drives exact hreflang. */
     locales: string[];
     /** Path without locale prefix (`/articles/24-worldbuilding`). */
     path: string;
@@ -24,7 +24,7 @@ export function page(definition: PageDefinition): PageDefinition {
 /** The port a site implements: every page of its own content sources, listed. */
 export type PageProvider = () => PageDefinition[];
 
-/** Per-kind projection defaults — one place, no per-page ceremony. */
+/** Per-kind projection defaults: one place, no per-page ceremony. */
 export const KIND_DEFAULTS: Record<
     PageKind,
     { changeFrequency: 'monthly' | 'weekly'; priority: number }

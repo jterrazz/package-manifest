@@ -1,6 +1,6 @@
 import type { SiteDefinition } from '../model/site.js';
 
-/** The Person reference authored content points at — the id and what a citation shows. */
+/** The Person reference authored content points at: the id and what a citation shows. */
 export type PersonRef = {
     '@id': string;
     '@type': 'Person';
@@ -8,7 +8,7 @@ export type PersonRef = {
     url: string;
 };
 
-/** The canonical Person entity — the reference, plus everything the identity declares. */
+/** The canonical Person entity: the reference, plus everything the identity declares. */
 export type PersonNode = {
     '@id': string;
     '@type': 'Person';
@@ -89,7 +89,7 @@ export function projectWebSite(site: SiteDefinition): WebSiteNode {
     };
 }
 
-/** The site-wide identity graph — rendered once, in the root layout. */
+/** The site-wide identity graph, rendered once in the root layout. */
 export function projectIdentityGraph(site: SiteDefinition): IdentityGraph {
     return {
         '@context': 'https://schema.org',
@@ -99,7 +99,7 @@ export function projectIdentityGraph(site: SiteDefinition): IdentityGraph {
 
 /** What a page declares about one image it publishes. */
 export type ImageObjectOptions = {
-    /** Where a person acquires a license for the image — the photographer's profile or the stock page. */
+    /** Where a person acquires a license for the image: the photographer's profile or the stock page. */
     acquireLicensePage: string;
     /** Absolute URL of the image file. */
     contentUrl: string;
