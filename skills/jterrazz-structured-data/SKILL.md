@@ -1,6 +1,6 @@
 ---
 name: jterrazz-structured-data
-description: JSON-LD structured data (schema.org): choosing types, required properties, validation, rich results. Use when the user mentions "schema", "structured data", "JSON-LD", "rich results", "rich snippets", or when adding machine-readable markup to pages. For the broader SEO audit see jterrazz-seo; for AI citation formatting see jterrazz-geo.
+description: "JSON-LD structured data (schema.org): choosing types, required properties, validation, rich results. Use when the user mentions \"schema\", \"structured data\", \"JSON-LD\", \"rich results\", \"rich snippets\", or when adding machine-readable markup to pages. For the broader SEO audit see jterrazz-seo; for AI citation formatting see jterrazz-geo."
 ---
 
 # Structured data: JSON-LD

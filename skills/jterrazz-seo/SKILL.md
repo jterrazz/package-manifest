@@ -1,6 +1,6 @@
 ---
 name: jterrazz-seo
-description: Technical and on-page SEO for web projects: audit workflow, crawlability, indexation, Core Web Vitals, metadata, canonicals, hreflang, internal linking. Use when the user mentions "SEO", "SEO audit", "not ranking", "traffic dropped", "meta tags", "sitemap", "robots.txt", "canonical", "hreflang", "Core Web Vitals", "indexing", or wants more organic traffic. Even a vague "my SEO is bad" starts here with an audit. For AI/LLM search visibility see jterrazz-geo; for JSON-LD see jterrazz-structured-data; for content strategy and distribution see jterrazz-content-reach.
+description: "Technical and on-page SEO for web projects: audit workflow, crawlability, indexation, Core Web Vitals, metadata, canonicals, hreflang, internal linking. Use when the user mentions \"SEO\", \"SEO audit\", \"not ranking\", \"traffic dropped\", \"meta tags\", \"sitemap\", \"robots.txt\", \"canonical\", \"hreflang\", \"Core Web Vitals\", \"indexing\", or wants more organic traffic. Even a vague \"my SEO is bad\" starts here with an audit. For AI/LLM search visibility see jterrazz-geo; for JSON-LD see jterrazz-structured-data; for content strategy and distribution see jterrazz-content-reach."
 ---
 
 # SEO: technical & on-page

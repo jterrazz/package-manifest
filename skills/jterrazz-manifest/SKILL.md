@@ -1,6 +1,6 @@
 ---
 name: jterrazz-manifest
-description: Wire a site into @jterrazz/manifest: defineSite/person/page model, projections (identity JSON-LD, image JSON-LD, sitemap, robots, llms.txt), Next adapter one-liners, and the audit rule pack run via specification.website(). Use when adding SEO surfaces to a site, creating manifest.config.ts, writing page providers, or running/debugging the manifest audit.
+description: "Wire a site into @jterrazz/manifest: defineSite/person/page model, projections (identity JSON-LD, image JSON-LD, sitemap, robots, llms.txt), Next adapter one-liners, and the audit rule pack run via specification.website(). Use when adding SEO surfaces to a site, creating manifest.config.ts, writing page providers, or running/debugging the manifest audit."
 ---
 
 # @jterrazz/manifest: the manifest declares, the projections derive, the audit verifies
