@@ -17,10 +17,6 @@
             "types": "./dist/index.d.ts",
             "import": "./dist/index.js"
         },
-        "./next": {
-            "types": "./dist/next.d.ts",
-            "import": "./dist/next.js"
-        },
         "./testing": {
             "types": "./dist/testing.d.ts",
             "import": "./dist/testing.js"
@@ -35,20 +31,15 @@
     "devDependencies": {
         "@jterrazz/test": "^17.0.0",
         "@jterrazz/typescript": "^11.0.0",
-        "next": "^16.2.10",
         "playwright": "^1.63.0",
         "vitest": "^5.0.1"
     },
     "peerDependencies": {
         "@jterrazz/test": "^17.0.0",
-        "next": ">=15",
         "vitest": ">=5"
     },
     "peerDependenciesMeta": {
         "@jterrazz/test": {
-            "optional": true
-        },
-        "next": {
             "optional": true
         },
         "vitest": {

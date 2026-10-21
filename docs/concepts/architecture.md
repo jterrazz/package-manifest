@@ -1,18 +1,17 @@
 # Architecture
 
-`@jterrazz/manifest` is a site's presence declared once and projected into every machine-facing surface, with an audit that checks a live site against the declaration. Three published entries carry that: the model and its projections, a Next.js adapter, and the audit rule pack.
+`@jterrazz/manifest` is a site's presence declared once and projected into every machine-facing surface, with an audit that checks a live site against the declaration. Two published entries carry that: the model and its projections, and the audit rule pack.
 
-## The three entries
+## The two entries
 
-`package.json#exports` publishes three ESM entries, each built by `typescript build` from the source the entry grammar names:
+`package.json#exports` publishes two ESM entries, each built by `typescript build` from the source the entry grammar names:
 
 | Entry       | Built from             | Ships                                                                 |
 | ----------- | ---------------------- | --------------------------------------------------------------------- |
 | `.`         | `src/index.ts`         | the model and the projections                                         |
-| `./next`    | `src/index.next.ts`    | the App Router adapter                                                |
 | `./testing` | `src/index.testing.ts` | the audit rule pack, `audit.website` ([Audit](../reference/audit.md)) |
 
-`next`, `vitest` and `@jterrazz/test` are optional peers: the build leaves them external, and a consumer that never imports `./next` or `./testing` never installs them. `./next` reads only the types of `next`, so its built module imports nothing of it at run time.
+`vitest` and `@jterrazz/test` are optional peers: the build leaves them external, and a consumer that never imports `./testing` never installs them.
 
 ## Model and projections
 
@@ -24,10 +23,6 @@ The `.` entry re-exports two layers, and the dependency runs one way:
 Every page carries a `PageKind` (`article`, `collection`, `gallery`, `home`, `profile`, `software`), and `KIND_DEFAULTS` is the one table that turns a kind into a sitemap priority and change frequency: a page declared is a page fully projected, with no per-page ceremony at the call site.
 
 The package never reads content. A consumer implements `PageProvider`, a function listing the pages of its own content sources, and hands the providers to the projections.
-
-## The Next.js adapter
-
-`src/index.next.ts` takes no decision of its own: `createSitemap`, `createRobots` and `createLlms` each wrap a projection into the shape an App Router file expects: `app/sitemap.ts`, `app/robots.ts`, a `llms.txt` route handler. A site on another framework calls the projections itself, as `jterrazz-web` (Astro) does.
 
 ## The audit entry
 

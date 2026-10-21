@@ -12,9 +12,9 @@ A site's presence declared once, projected into every machine-facing surface, an
 
 ## Concepts
 
-| Page                                     | Answers                                                                           |
-| ---------------------------------------- | --------------------------------------------------------------------------------- |
-| [Architecture](concepts/architecture.md) | The three entries, the model and the projections, the adapter and the audit entry |
+| Page                                     | Answers                                                             |
+| ---------------------------------------- | ------------------------------------------------------------------- |
+| [Architecture](concepts/architecture.md) | The two entries, the model and the projections, and the audit entry |
 
 ## Reference
 

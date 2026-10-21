@@ -1,6 +1,6 @@
 # Agent brief: `@jterrazz/manifest`
 
-The manifest declares, the projections derive, the audit verifies: a site's presence declared once, projected into every machine-facing surface, checked against the live site. Three entries: `.` (model and projections), `./next` (App Router adapter), `./testing` (`audit.website`, run through `specification.website()`). This file **routes**; it does not restate what the corpus already says.
+The manifest declares, the projections derive, the audit verifies: a site's presence declared once, projected into every machine-facing surface, checked against the live site. Two entries: `.` (model and projections), `./testing` (`audit.website`, run through `specification.website()`). This file **routes**; it does not restate what the corpus already says.
 
 ## Where knowledge lives (route here first)
 
@@ -8,7 +8,7 @@ The corpus is `docs/` + `README.md`, mapped by `docs/README.md`. Decisions this 
 
 | Working on                                               | Read                            |
 | -------------------------------------------------------- | ------------------------------- |
-| the three entries, the model and projections boundary    | `docs/concepts/architecture.md` |
+| the two entries, the model and projections boundary      | `docs/concepts/architecture.md` |
 | the declaration, the gestures, where a new file goes     | `docs/guides/develop.md`        |
 | the specs from the tarball, the audit spec, the mutation | `docs/guides/test.md`           |
 | the release, and the peer range                          | `docs/guides/release.md`        |

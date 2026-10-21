@@ -32,15 +32,13 @@ export const site = defineSite({
 
 ## Project
 
-The projections are plain functions of the declaration and of the pages a site lists (`projectIdentityGraph`, `projectSitemap`, `projectRobots`, `projectLlms`), for any framework. On Next.js, `@jterrazz/manifest/next` turns each route into one line:
+The projections are plain functions of the declaration and of the pages a site lists (`projectIdentityGraph`, `projectSitemap`, `projectRobots`, `projectLlms`), for any framework.
 
 ```ts
-// app/sitemap.ts
-export default createSitemap(site, [articlesProvider, pagesProvider]);
-// app/robots.ts
-export default createRobots(site);
-// app/llms.txt/route.ts
-export const GET = createLlms(site, [articlesProvider]);
+const pages = [articlesProvider, pagesProvider].flatMap((provide) => provide());
+projectSitemap(site, pages); // SitemapEntry[]
+projectRobots(site); // RobotsProjection
+projectLlms(site, pages); // string
 ```
 
 ## Verify
@@ -57,7 +55,7 @@ The model speaks the language of intent; the projections speak the language of s
 
 The manual lives in [`docs/`](docs/README.md):
 
-- [Architecture](docs/concepts/architecture.md): the three entries, the model and the projections, the audit entry.
+- [Architecture](docs/concepts/architecture.md): the two entries, the model and the projections, the audit entry.
 - [Develop](docs/guides/develop.md): the declaration, the gestures, where a new file goes.
 - [Test](docs/guides/test.md): the specs from the tarball and the audit spec.
 - [Release](docs/guides/release.md): what publishes the package, and its peer range.
