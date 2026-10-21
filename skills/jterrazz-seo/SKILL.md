@@ -26,7 +26,7 @@ Fix in this order, since each layer is worthless without the one above it:
 
 ## Measurement traps (report false findings and you lose trust)
 
-- **Plain HTTP fetches strip `<script>` tags**: JSON-LD and JS-injected markup are invisible to `curl`/web-fetch. Never report "missing schema" from a fetch; verify with a browser (`document.querySelectorAll('script[type="application/ld+json"]')`) or Google's Rich Results Test.
+- **A web-fetch tool may drop `<script>` tags; raw HTTP never does**: an agent's web-fetch tool returns extracted text, so JSON-LD and JS-injected markup are invisible to it, while `curl` returns the served HTML with its `<script type="application/ld+json">` blocks (markup injected by client-side JS is still absent). Never report "missing schema" from a web-fetch tool; read the raw HTML, or verify in a browser (`document.querySelectorAll('script[type="application/ld+json"]')`) or with Google's Rich Results Test.
 - **Client-side-rendered content** may be absent from initial HTML. Check the SSR/SSG output before declaring content thin or missing.
 - `site:domain.com` counts are approximate; use Search Console coverage for real indexation data.
 

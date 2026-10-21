@@ -37,7 +37,7 @@ Property details per type: [§ Properties per type](#properties-per-type).
 
 ## Detection caveat
 
-Plain HTTP fetches strip `<script>` tags, so **you cannot audit schema with curl/web-fetch**. Check the source that generates it (in Next.js: the JSON-LD builder + component), or a real browser, or the Rich Results Test. Reference implementation: `jterrazz-web`'s `src/infrastructure/seo/json-ld.ts` (typed builders, unit-tested) rendered via a dedicated script component.
+An agent's web-fetch tool may drop `<script>` tags, so **it cannot audit schema**; raw HTTP (`curl`) returns the served HTML, so JSON-LD in the server-rendered page is readable there, while JSON-LD injected by client-side JS needs a real browser. Check the raw HTML, the source that generates it (in Next.js: the JSON-LD builder + component), a real browser, or the Rich Results Test. Reference implementation: `jterrazz-web`'s `src/infrastructure/seo/json-ld.ts` (typed builders, unit-tested) rendered via a dedicated script component.
 
 ## Common mistakes
 
