@@ -7,6 +7,7 @@ import {
     projectAuthorRef,
     projectIdentityGraph,
     projectImageObject,
+    projectLlms,
     projectPerson,
     projectRobots,
     projectSitemap,
@@ -70,6 +71,7 @@ const websiteNode: WebSiteNode = projectWebSite(site);
 const photo: ImageObjectOptions = { acquireLicensePage: 'https://stock.test/@ada', contentUrl: 'https://site.test/1.jpg', description: 'x' };
 const image: ImageObjectNode = projectImageObject(site, photo);
 const robots: RobotsProjection = projectRobots(site);
+const llms: string = projectLlms(site, [home]);
 
 // @ts-expect-error a page declares one of the six kinds
 page({ description: 'x', kind: 'post', locales: ['en'], path: '/x', title: 'x' });
