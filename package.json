@@ -29,13 +29,13 @@
         "test": "vitest --run"
     },
     "devDependencies": {
-        "@jterrazz/test": "^17.0.0",
-        "@jterrazz/typescript": "^11.0.0",
+        "@jterrazz/test": "^18.0.0",
+        "@jterrazz/typescript": "^11.1.0",
         "playwright": "^1.63.0",
-        "vitest": "^5.0.1"
+        "vitest": "^5.0.5"
     },
     "peerDependencies": {
-        "@jterrazz/test": "^17.0.0",
+        "@jterrazz/test": "^18.0.0",
         "vitest": ">=5"
     },
     "peerDependenciesMeta": {
