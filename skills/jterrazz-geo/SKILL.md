@@ -1,6 +1,6 @@
 ---
 name: jterrazz-geo
-description: "AI search & LLM visibility (GEO/AEO): getting cited by ChatGPT, Claude, Perplexity, and Google AI Overviews. Use when the user mentions \"GEO\", \"AEO\", \"AI SEO\", \"LLM visibility\", \"AI citations\", \"llms.txt\", \"AI crawlers\", \"ChatGPT doesn't mention my site\", \"AI Overviews\", or wants their content/product to show up in AI answers. For classic search rankings see jterrazz-seo; for JSON-LD see jterrazz-structured-data."
+description: 'AI search & LLM visibility (GEO/AEO): getting cited by ChatGPT, Claude, Perplexity, and Google AI Overviews. Use when the user mentions "GEO", "AEO", "AI SEO", "LLM visibility", "AI citations", "llms.txt", "AI crawlers", "ChatGPT doesn''t mention my site", "AI Overviews", or wants their content/product to show up in AI answers. For classic search rankings see jterrazz-seo; for JSON-LD see jterrazz-structured-data.'
 ---
 
 # GEO: visibility in AI answers
