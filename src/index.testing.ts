@@ -1,6 +1,7 @@
 import type { WebsiteSpecification } from '@jterrazz/test';
 import { expect, test } from 'vitest';
 
+import { markup, served } from './audit/markup.js';
 import type { SiteDefinition } from './index.js';
 
 type Rule = (website: WebsiteSpecification, site: SiteDefinition) => void;
@@ -44,7 +45,7 @@ function isPresent(value: unknown): boolean {
     return value !== undefined && value !== null;
 }
 
-// Stryker disable next-line StringLiteral: `''` and `'/'` both visit the base URL, the homepage
+// Stryker disable next-line StringLiteral: `''` and `'/'` both reach the base URL, the homepage
 const HOMEPAGE = '/';
 
 // invariant: the pages that can carry images are the ones the sitemap lists; a site serving none answers 404 with no `<loc>`, and is audited on its homepage alone.
@@ -62,11 +63,11 @@ async function auditedPages(website: WebsiteSpecification): Promise<string[]> {
 
 const canonicalHost: Rule = (website, site) => {
     test('manifest/canonical-host — the homepage canonical points at the declared address', async () => {
-        // Given - the rendered homepage
-        const result = await website.visit(HOMEPAGE);
+        // Given - the served homepage
+        const { html, status } = await served(website, HOMEPAGE);
 
         // Then - it answers 200, its canonical the one declared origin
-        expect({ canonical: result.canonical, status: result.status }).toStrictEqual({
+        expect({ canonical: markup.canonical(html), status }).toStrictEqual({
             canonical: `${site.address}/`,
             status: 200,
         });
@@ -75,24 +76,26 @@ const canonicalHost: Rule = (website, site) => {
 
 const hreflangSelfAndDefault: Rule = (website, site) => {
     test('manifest/hreflang-self-and-default — the homepage declares every locale and x-default', async () => {
-        // Given - the rendered homepage
-        const result = await website.visit(HOMEPAGE);
+        // Given - the served homepage
+        const { html } = await served(website, HOMEPAGE);
 
         // Then - no declared locale lacks its alternate, and x-default is the main address
         expect({
-            missing: site.languages.all.filter((locale) => result.alternates[locale] === undefined),
-            xDefault: result.alternates['x-default'],
+            missing: site.languages.all.filter(
+                (locale) => markup.alternate(html, locale) === undefined,
+            ),
+            xDefault: markup.alternate(html, 'x-default'),
         }).toStrictEqual({ missing: [], xDefault: `${site.address}/` });
     });
 };
 
 const singlePerson: Rule = (website, site) => {
     test('identity/single-person — exactly one Person entity, with the canonical @id', async () => {
-        // Given - the rendered homepage's structured data
-        const result = await website.visit(HOMEPAGE);
+        // Given - the served homepage's structured data
+        const { html } = await served(website, HOMEPAGE);
 
         // Then - one Person node, carrying the stable id and the declared name
-        const persons = jsonLdNodes(result.jsonLd.value)
+        const persons = jsonLdNodes(markup.jsonLd(html))
             .filter((node) => node['@type'] === 'Person')
             .map((node) => ({ id: node['@id'], name: node.name }));
         expect(persons).toStrictEqual([
@@ -153,12 +156,12 @@ const feed: Rule = (website, site) => {
 
 const cardReachable: Rule = (website, site) => {
     test('sharing/card-reachable — the sharing card image answers and is declared on the page', async () => {
-        // Given - the rendered homepage and the card asset
-        const result = await website.visit(HOMEPAGE);
+        // Given - the served homepage and the card asset
+        const { html } = await served(website, HOMEPAGE);
         const image = await website.fetch(site.sharing.card.image);
 
         // Then - the OG image is the declared card, and the asset answers 200
-        expect({ image: image.status, ogImage: result.meta('og:image') }).toStrictEqual({
+        expect({ image: image.status, ogImage: markup.meta(html, 'og:image') }).toStrictEqual({
             image: 200,
             ogImage: `${site.address}${site.sharing.card.image}`,
         });
@@ -167,11 +170,11 @@ const cardReachable: Rule = (website, site) => {
 
 const namedInTitle: Rule = (website, site) => {
     test('identity/named-in-title — the homepage title names the identity', async () => {
-        // Given - the rendered homepage
-        const result = await website.visit(HOMEPAGE);
+        // Given - the served homepage
+        const { html } = await served(website, HOMEPAGE);
 
         // Then - the person's name is in the title
-        expect(result.title.text).toContain(site.identity.name);
+        expect(markup.title(html)).toContain(site.identity.name);
     });
 };
 
@@ -190,9 +193,9 @@ const creditedImagesLicensed: Rule = (website) => {
         // Given - the structured data of the homepage and of every page the sitemap lists
         const unlicensed = [];
         for (const page of await auditedPages(website)) {
-            const result = await website.visit(page);
+            const { html } = await served(website, page);
             unlicensed.push(
-                ...imageObjects(result.jsonLd.value)
+                ...imageObjects(markup.jsonLd(html))
                     .filter((image) => ELIGIBLE_FIELDS.some((field) => isPresent(image[field])))
                     .map((image) => ({
                         contentUrl: image.contentUrl,

@@ -1,6 +1,6 @@
 # Audit
 
-`@jterrazz/manifest/testing` ships `audit.website(website, site)`: eleven vitest tests that verify a rendered or deployed site against its own declaration. A consumer calls it in a website spec, with the handle `specification.website()` of `@jterrazz/test` returns:
+`@jterrazz/manifest/testing` ships `audit.website(website, site)`: eleven vitest tests that verify a running or deployed site against its own declaration. A consumer calls it in a website spec, with the handle `specification.website()` of `@jterrazz/test` returns:
 
 ```ts
 // specs/website/manifest/manifest.spec.ts
@@ -28,9 +28,11 @@ There are no options and no skip list: the declaration conditions the rules, so 
 | `images/credit-licensed`             | every `ImageObject` in the JSON-LD of the homepage and of each page the sitemap lists that carries `creator`, `creditText`, `copyrightNotice` or `license` also carries `license` and `acquireLicensePage` |
 | `quality/console-silence`            | the homepage renders with no console error                                                                                                                                                                 |
 
-`images/credit-licensed` is the one rule that leaves the homepage: images live on gallery and article pages, so it visits each page `/sitemap.xml` lists (its `<loc>` entries; a nested sitemap index is not followed) and names the page beside each offending image. A site serving no sitemap is audited on its homepage alone, and an image on a page the sitemap omits is not seen.
+`images/credit-licensed` is the one rule that leaves the homepage: images live on gallery and article pages, so it reads each page `/sitemap.xml` lists (its `<loc>` entries; a nested sitemap index is not followed) and names the page beside each offending image. A site serving no sitemap is audited on its homepage alone, and an image on a page the sitemap omits is not seen.
 
-The rules are written against `@jterrazz/test` 17's result accessors, its peer range: the `.visit()` rules render the homepage in Playwright's Chromium, an optional peer of `@jterrazz/test` the consumer installs.
+A rule that reads markup (the head's canonical, alternates, `og:image` and title, the JSON-LD) reads it as the server sends it, over `.fetch()`, following each redirect to the document it lands on, as a crawler that runs no script does: a tag or a JSON-LD block a script injects is not seen. Only `quality/console-silence` renders the homepage, since a console error exists only in a browser: a site is rendered once per audit, and the server never has to render the sitemap's pages (or encode their images) for a browser.
+
+The rules are written against `@jterrazz/test` 17's result accessors, its peer range: `quality/console-silence` renders in Playwright's Chromium, an optional peer of `@jterrazz/test` the consumer installs.
 
 ## Related
 

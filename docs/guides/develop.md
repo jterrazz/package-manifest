@@ -33,6 +33,7 @@ Build, test and lint output lands under `.artifacts/`, which `.gitignore` ignore
 | something a site can declare                | `src/model/`, free of any standard's vocabulary                                                                  |
 | a new surface, or a change to how one reads | `src/projections/<surface>.ts`, reading the model and never the other way                                        |
 | a mechanically checkable rule of a site     | a `Rule` of `src/index.testing.ts`, named `<subject>/<rule>`, listed in `RULES` ([Audit](../reference/audit.md)) |
+| a reader the audit rules share              | `src/audit/`, reached from `src/index.testing.ts` alone                                                          |
 | a public export                             | `src/index.ts`; a new subpath also needs its `package.json#exports` entry and its `src/index.<subpath>.ts`       |
 | a behaviour a consumer relies on            | a spec under `specs/cli/`, driving the packed package from a consumer's project ([Test](test.md))                |
 

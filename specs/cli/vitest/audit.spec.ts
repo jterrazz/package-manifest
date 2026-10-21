@@ -32,7 +32,7 @@ describe('audit', () => {
     });
 
     test('a site that breaks every declared surface fails every rule, each naming what it found', async () => {
-        // Given - the same audit against a site with the wrong canonical, one alternate of three, a second Person, a robots.txt hiding one path of two and naming neither the sitemap nor the AI crawlers its policy blocks, no llms.txt, no feed, no card, a title without the name and a console error and credited images without license on the homepage and on a gallery the sitemap lists
+        // Given - the same audit against a site with the wrong canonical, one alternate of three, a second Person, a robots.txt hiding one path of two and naming neither the sitemap nor the AI crawlers its policy blocks, no llms.txt, no feed, no card, a title without the name whose entities and spacing the server encoded, a console error and credited images without license on the homepage and on a gallery the sitemap lists behind two redirects
         const result = await cli
             .fixture(directory('./__fixtures__/consumer/'))
             .link('@jterrazz/manifest', packed())
@@ -129,7 +129,7 @@ describe('audit', () => {
                   }
             failed identity/named-in-title — the homepage title names the identity
                 Expected: "Ada Example"
-                Received: "Notes"
+                Received: "Notes & Sketches — “<>"'"
             failed quality/console-silence — the homepage renders without console errors
                 - Expected
                 + Received
@@ -176,7 +176,7 @@ describe('audit', () => {
                 +       "license",
                 +       "acquireLicensePage",
                 +     ],
-                +     "page": "/gallery.html",
+                +     "page": "/gallery",
                 +   },
                 +   {
                 +     "contentUrl": "https://site.test/photos/6.jpg",
@@ -184,7 +184,7 @@ describe('audit', () => {
                 +       "license",
                 +       "acquireLicensePage",
                 +     ],
-                +     "page": "/gallery.html",
+                +     "page": "/gallery",
                 +   },
                 + ]
         `);
