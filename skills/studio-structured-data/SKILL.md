@@ -1,6 +1,6 @@
 ---
-name: jterrazz-structured-data
-description: 'JSON-LD structured data (schema.org): choosing types, required properties, validation, rich results. Use when the user mentions "schema", "structured data", "JSON-LD", "rich results", "rich snippets", or when adding machine-readable markup to pages. For the broader SEO audit see jterrazz-seo; for AI citation formatting see jterrazz-geo.'
+name: studio-structured-data
+description: 'JSON-LD structured data (schema.org): choosing types, required properties, validation, rich results. Use when the user mentions "schema", "structured data", "JSON-LD", "rich results", "rich snippets", or when adding machine-readable markup to pages. For the broader SEO audit see studio-seo; for AI citation formatting see studio-geo.'
 ---
 
 # Structured data: JSON-LD
@@ -48,7 +48,7 @@ An agent's web-fetch tool may drop `<script>` tags, so **it cannot audit schema*
 
 ## Properties per type
 
-Companion to `jterrazz-structured-data`. "Required" = required for the rich result / core meaning; "recommended" = strengthens the entity. Only include properties you can populate truthfully from visible content.
+Companion to `studio-structured-data`. "Required" = required for the rich result / core meaning; "recommended" = strengthens the entity. Only include properties you can populate truthfully from visible content.
 
 ### Person
 
@@ -139,5 +139,5 @@ Required: `name`, `address` (PostalAddress). Recommended: `geo` (GeoCoordinates)
 
 ## Related skills
 
-- **jterrazz-seo**: schema is layer 4 of the audit; crawlability and indexation come first.
-- **jterrazz-geo**: entity clarity feeds AI attribution; `sameAs` links (GitHub, X, LinkedIn) consolidate identity.
+- **studio-seo**: schema is layer 4 of the audit; crawlability and indexation come first.
+- **studio-geo**: entity clarity feeds AI attribution; `sameAs` links (GitHub, X, LinkedIn) consolidate identity.

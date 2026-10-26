@@ -1,6 +1,6 @@
 ---
-name: jterrazz-seo
-description: 'Technical and on-page SEO for web projects: audit workflow, crawlability, indexation, Core Web Vitals, metadata, canonicals, hreflang, internal linking. Use when the user mentions "SEO", "SEO audit", "not ranking", "traffic dropped", "meta tags", "sitemap", "robots.txt", "canonical", "hreflang", "Core Web Vitals", "indexing", or wants more organic traffic. Even a vague "my SEO is bad" starts here with an audit. For AI/LLM search visibility see jterrazz-geo; for JSON-LD see jterrazz-structured-data; for content strategy and distribution see jterrazz-content-reach.'
+name: studio-seo
+description: 'Technical and on-page SEO for web projects: audit workflow, crawlability, indexation, Core Web Vitals, metadata, canonicals, hreflang, internal linking. Use when the user mentions "SEO", "SEO audit", "not ranking", "traffic dropped", "meta tags", "sitemap", "robots.txt", "canonical", "hreflang", "Core Web Vitals", "indexing", or wants more organic traffic. Even a vague "my SEO is bad" starts here with an audit. For AI/LLM search visibility see studio-geo; for JSON-LD see studio-structured-data; for content strategy and distribution see studio-content-reach.'
 ---
 
 # SEO: technical & on-page
@@ -133,6 +133,6 @@ Free and sufficient for most audits: Google Search Console, PageSpeed Insights, 
 
 ## Related skills
 
-- **jterrazz-geo**: citations in ChatGPT/Perplexity/AI Overviews, llms.txt, AI crawlers.
-- **jterrazz-structured-data**: JSON-LD implementation and validation.
-- **jterrazz-content-reach**: what to write and how to distribute it.
+- **studio-geo**: citations in ChatGPT/Perplexity/AI Overviews, llms.txt, AI crawlers.
+- **studio-structured-data**: JSON-LD implementation and validation.
+- **studio-content-reach**: what to write and how to distribute it.

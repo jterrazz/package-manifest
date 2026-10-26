@@ -1,5 +1,5 @@
 ---
-name: jterrazz-manifest
+name: studio-manifest
 description: 'Wire a site into @jterrazz/manifest: defineSite/person/page model, projections (identity JSON-LD, image JSON-LD, sitemap, robots, llms.txt), and the audit rule pack run via specification.website(). Use when adding SEO surfaces to a site, creating manifest.config.ts, writing page providers, or running/debugging the manifest audit.'
 ---
 
@@ -28,5 +28,5 @@ A closed namespace in the shape of `specification`: one method per subject, no o
 ## Boundaries
 
 - Model = language of intent; projections = language of standards; never leak protocol vocabulary into `manifest.config.ts`.
-- Judgment stays in the domain skills (jterrazz-seo, jterrazz-geo, jterrazz-structured-data, jterrazz-content-reach, all in this repo); the package codifies only what is mechanically checkable.
+- Judgment stays in the domain skills (studio-seo, studio-geo, studio-structured-data, studio-content-reach, all in this repo); the package codifies only what is mechanically checkable.
 - Reference consumer: `jterrazz-web` (Astro: the projections in its own routes, the audit in its own website specs).

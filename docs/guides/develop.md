@@ -4,7 +4,7 @@ How a change to this package is made: the declaration every config follows, the 
 
 ## The declaration
 
-`@jterrazz/typescript` supplies the whole toolchain (build, type-check, lint, format, unused code, mutation) from one devDependency, and `jterrazz.config.ts` says what this package is: a `library` on `node`, held to `@jterrazz/test`'s preset. Every other config follows from that line:
+`@jterrazz/typescript` supplies the whole toolchain (build, type-check, lint, format, unused code, mutation) from one devDependency, and `studio.config.ts` says what this package is: a `library` on `node`, held to `@jterrazz/test`'s preset. Every other config follows from that line:
 
 - `oxlint.config.ts`, `oxfmt.config.ts`, `tsconfig.json` and `vitest.config.ts` are the one-line derivations `typescript fix` writes and `typescript check` refuses to see edited;
 - knip, the build and Stryker are configured by the commands that run them: no `knip.json`, no `tsdown.config.*`;
@@ -41,7 +41,7 @@ Judgement (SEO, GEO, structured data, content reach) belongs in `skills/`, never
 
 ## What a change owes
 
-A new or changed export reaches the root `README.md`, the page of this manual that owns it and the `skills/jterrazz-manifest/` skill in the same change: none of the three is generated, so nothing catches a stale one. A comment states the kind of thing the code cannot say (`invariant:`, `hazard:`, `outside:`, `value:`) or is not written; a public symbol keeps a one-line hover.
+A new or changed export reaches the root `README.md`, the page of this manual that owns it and the `skills/studio-manifest/` skill in the same change: none of the three is generated, so nothing catches a stale one. A comment states the kind of thing the code cannot say (`invariant:`, `hazard:`, `outside:`, `value:`) or is not written; a public symbol keeps a one-line hover.
 
 ## Related
 

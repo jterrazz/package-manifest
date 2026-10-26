@@ -1,6 +1,6 @@
 ---
-name: jterrazz-content-reach
-description: 'Content strategy and distribution to grow reach: what to write, topic clusters, refreshing decayed pages, repurposing, directories, feeds, third-party presence. Use when the user mentions "more traffic", "content strategy", "content plan", "what should I write", "promote my article/app/site", "distribution", "newsletter", "nobody reads my posts", or wants to grow an audience. For technical ranking issues see jterrazz-seo; for AI citations see jterrazz-geo.'
+name: studio-content-reach
+description: 'Content strategy and distribution to grow reach: what to write, topic clusters, refreshing decayed pages, repurposing, directories, feeds, third-party presence. Use when the user mentions "more traffic", "content strategy", "content plan", "what should I write", "promote my article/app/site", "distribution", "newsletter", "nobody reads my posts", or wants to grow an audience. For technical ranking issues see studio-seo; for AI citations see studio-geo.'
 ---
 
 # Content & reach
@@ -42,6 +42,6 @@ Third-party presence compounds: profiles (GitHub, X, LinkedIn) consistent and li
 
 ## Related skills
 
-- **jterrazz-seo**: technical health so the content can rank at all.
-- **jterrazz-geo**: formatting so the content gets cited by AI engines.
-- **jterrazz-structured-data**: Article/Person markup for attribution.
+- **studio-seo**: technical health so the content can rank at all.
+- **studio-geo**: formatting so the content gets cited by AI engines.
+- **studio-structured-data**: Article/Person markup for attribution.

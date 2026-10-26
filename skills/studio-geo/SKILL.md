@@ -1,6 +1,6 @@
 ---
-name: jterrazz-geo
-description: 'AI search & LLM visibility (GEO/AEO): getting cited by ChatGPT, Claude, Perplexity, and Google AI Overviews. Use when the user mentions "GEO", "AEO", "AI SEO", "LLM visibility", "AI citations", "llms.txt", "AI crawlers", "ChatGPT doesn''t mention my site", "AI Overviews", or wants their content/product to show up in AI answers. For classic search rankings see jterrazz-seo; for JSON-LD see jterrazz-structured-data.'
+name: studio-geo
+description: 'AI search & LLM visibility (GEO/AEO): getting cited by ChatGPT, Claude, Perplexity, and Google AI Overviews. Use when the user mentions "GEO", "AEO", "AI SEO", "LLM visibility", "AI citations", "llms.txt", "AI crawlers", "ChatGPT doesn''t mention my site", "AI Overviews", or wants their content/product to show up in AI answers. For classic search rankings see studio-seo; for JSON-LD see studio-structured-data.'
 ---
 
 # GEO: visibility in AI answers
@@ -52,6 +52,6 @@ Also verify in server/CDN logs that they actually hit the site: a WAF or bot-pro
 
 ## Related skills
 
-- **jterrazz-seo**: the technical base (crawlable, indexed, fast) is a prerequisite; GEO doesn't rescue an uncrawlable site.
-- **jterrazz-structured-data**: entity clarity (Person/Organization/Article) helps engines attribute content.
-- **jterrazz-content-reach**: the presence pillar, earning third-party mentions.
+- **studio-seo**: the technical base (crawlable, indexed, fast) is a prerequisite; GEO doesn't rescue an uncrawlable site.
+- **studio-structured-data**: entity clarity (Person/Organization/Article) helps engines attribute content.
+- **studio-content-reach**: the presence pillar, earning third-party mentions.
