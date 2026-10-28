@@ -20,7 +20,8 @@ The site's presence is declared ONCE in `manifest.config.ts` (`defineSite`, `per
 ```ts
 // specs/website/manifest/manifest.spec.ts
 import { audit } from '@jterrazz/manifest/testing';
-audit.website(website, site); // website from specification.website() (@jterrazz/test 17)
+import { expect, test } from 'vitest';
+audit.website(website, site, { expect, test }); // website from specification.website() (@jterrazz/test 19)
 ```
 
 A closed namespace in the shape of `specification`: one method per subject, no options, no skip list: the manifest itself conditions the rules (`channels/feed` runs exactly when declared). Eleven named rules (manifest/canonical-host, hreflang, identity/single-person, identity/named-in-title, discovery, channels, sharing, images/credit-licensed, quality/console-silence) run against the built or deployed site. A failure reads as a finding: the rule, then what the site answered. The rules and what each checks: `docs/reference/audit.md`.

@@ -1,10 +1,25 @@
 import type { WebsiteSpecification } from '@jterrazz/test';
-import { expect, test } from 'vitest';
 
 import { markup, served } from './audit/markup.js';
 import type { SiteDefinition } from './index.js';
 
-type Rule = (website: WebsiteSpecification, site: SiteDefinition) => void;
+/** The matchers the rules assert with, a subset of what vitest's `expect` returns. */
+export interface AuditAssertion {
+    toBe: (expected: unknown) => void;
+    toContain: (expected: unknown) => void;
+    toStrictEqual: (expected: unknown) => void;
+}
+
+/**
+ * The consumer's test runner, handed in rather than imported: vitest's `test` and `expect`.
+ * invariant: the entry imports no test package at run time, so none is a peer, and a consumer's production tree holds none of them.
+ */
+export interface AuditRunner {
+    expect: (actual: unknown) => AuditAssertion;
+    test: (name: string, body: () => Promise<void>) => void;
+}
+
+type Rule = (website: WebsiteSpecification, site: SiteDefinition, runner: AuditRunner) => void;
 
 function isRecord(value: unknown): value is Record<string, unknown> {
     // Stryker disable next-line ConditionalExpression: a JSON primitive read by a key gives undefined, so it is dropped as no Person either way
@@ -61,7 +76,7 @@ async function auditedPages(website: WebsiteSpecification): Promise<string[]> {
     return [...new Set([HOMEPAGE, ...listed])];
 }
 
-const canonicalHost: Rule = (website, site) => {
+const canonicalHost: Rule = (website, site, { expect, test }) => {
     test('manifest/canonical-host — the homepage canonical points at the declared address', async () => {
         // Given - the served homepage
         const { html, status } = await served(website, HOMEPAGE);
@@ -74,7 +89,7 @@ const canonicalHost: Rule = (website, site) => {
     });
 };
 
-const hreflangSelfAndDefault: Rule = (website, site) => {
+const hreflangSelfAndDefault: Rule = (website, site, { expect, test }) => {
     test('manifest/hreflang-self-and-default — the homepage declares every locale and x-default', async () => {
         // Given - the served homepage
         const { html } = await served(website, HOMEPAGE);
@@ -89,7 +104,7 @@ const hreflangSelfAndDefault: Rule = (website, site) => {
     });
 };
 
-const singlePerson: Rule = (website, site) => {
+const singlePerson: Rule = (website, site, { expect, test }) => {
     test('identity/single-person — exactly one Person entity, with the canonical @id', async () => {
         // Given - the served homepage's structured data
         const { html } = await served(website, HOMEPAGE);
@@ -104,7 +119,7 @@ const singlePerson: Rule = (website, site) => {
     });
 };
 
-const robotsServesSitemap: Rule = (website, site) => {
+const robotsServesSitemap: Rule = (website, site, { expect, test }) => {
     test('discovery/robots-serves-sitemap — robots.txt allows, hides, and names the sitemap', async () => {
         // Given - the robots surface
         const result = await website.fetch('/robots.txt');
@@ -119,7 +134,7 @@ const robotsServesSitemap: Rule = (website, site) => {
     });
 };
 
-const aiCrawlersPolicy: Rule = (website, site) => {
+const aiCrawlersPolicy: Rule = (website, site, { expect, test }) => {
     test('discovery/ai-crawlers-policy — the declared AI policy is what robots.txt says', async () => {
         // Given - the robots surface
         const result = await website.fetch('/robots.txt');
@@ -131,7 +146,7 @@ const aiCrawlersPolicy: Rule = (website, site) => {
     });
 };
 
-const llmsIndex: Rule = (website, site) => {
+const llmsIndex: Rule = (website, site, { expect, test }) => {
     test('channels/llms-index — llms.txt exists exactly when declared', async () => {
         // Given - the llms surface
         const result = await website.fetch('/llms.txt');
@@ -144,7 +159,7 @@ const llmsIndex: Rule = (website, site) => {
     });
 };
 
-const feed: Rule = (website, site) => {
+const feed: Rule = (website, site, { expect, test }) => {
     test('channels/feed — the feed exists exactly when declared', async () => {
         // Given - the feed surface
         const result = await website.fetch('/feed.xml');
@@ -154,7 +169,7 @@ const feed: Rule = (website, site) => {
     });
 };
 
-const cardReachable: Rule = (website, site) => {
+const cardReachable: Rule = (website, site, { expect, test }) => {
     test('sharing/card-reachable — the sharing card image answers and is declared on the page', async () => {
         // Given - the served homepage and the card asset
         const { html } = await served(website, HOMEPAGE);
@@ -168,7 +183,7 @@ const cardReachable: Rule = (website, site) => {
     });
 };
 
-const namedInTitle: Rule = (website, site) => {
+const namedInTitle: Rule = (website, site, { expect, test }) => {
     test('identity/named-in-title — the homepage title names the identity', async () => {
         // Given - the served homepage
         const { html } = await served(website, HOMEPAGE);
@@ -178,7 +193,7 @@ const namedInTitle: Rule = (website, site) => {
     });
 };
 
-const consoleSilence: Rule = (website) => {
+const consoleSilence: Rule = (website, _site, { expect, test }) => {
     test('quality/console-silence — the homepage renders without console errors', async () => {
         // Given - the rendered homepage
         const result = await website.visit(HOMEPAGE);
@@ -188,7 +203,7 @@ const consoleSilence: Rule = (website) => {
     });
 };
 
-const creditedImagesLicensed: Rule = (website) => {
+const creditedImagesLicensed: Rule = (website, _site, { expect, test }) => {
     test('images/credit-licensed — an image crediting its creator carries its license and where to acquire it', async () => {
         // Given - the structured data of the homepage and of every page the sitemap lists
         const unlicensed = [];
@@ -225,11 +240,11 @@ const RULES: Rule[] = [
     creditedImagesLicensed,
 ];
 
-/** The manifest audit: one vitest test per rule, verifying a rendered site against its declaration. */
+/** The manifest audit: one test per rule, registered with the runner handed in, verifying a rendered site against its declaration. */
 export const audit = {
-    website(website: WebsiteSpecification, site: SiteDefinition): void {
+    website(website: WebsiteSpecification, site: SiteDefinition, runner: AuditRunner): void {
         for (const rule of RULES) {
-            rule(website, site);
+            rule(website, site, runner);
         }
     },
 };

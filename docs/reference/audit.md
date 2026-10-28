@@ -1,15 +1,16 @@
 # Audit
 
-`@jterrazz/manifest/testing` ships `audit.website(website, site)`: eleven vitest tests that verify a running or deployed site against its own declaration. A consumer calls it in a website spec, with the handle `specification.website()` of `@jterrazz/test` returns:
+`@jterrazz/manifest/testing` ships `audit.website(website, site, { expect, test })`: eleven tests that verify a running or deployed site against its own declaration. A consumer calls it in a website spec, with the handle `specification.website()` of `@jterrazz/test` returns and vitest's `expect` and `test`, which the rules register with and assert through:
 
 ```ts
 // specs/website/manifest/manifest.spec.ts
 import { audit } from '@jterrazz/manifest/testing';
+import { expect, test } from 'vitest';
 
 import { site } from '../../../manifest.config.js';
 import { website } from '../website.specification.js';
 
-audit.website(website, site);
+audit.website(website, site, { expect, test });
 ```
 
 There are no options and no skip list: the declaration conditions the rules, so `channels/feed` asks for a feed exactly when `channels.feed` is declared. Each rule is a test named after what it guards, so a failure reads as a finding: the rule, then what the site answered.
@@ -32,7 +33,7 @@ There are no options and no skip list: the declaration conditions the rules, so 
 
 A rule that reads markup (the head's canonical, alternates, `og:image` and title, the JSON-LD) reads it as the server sends it, over `.fetch()`, following each redirect to the document it lands on, as a crawler that runs no script does: a tag or a JSON-LD block a script injects is not seen. Only `quality/console-silence` renders the homepage, since a console error exists only in a browser: a site is rendered once per audit, and the server never has to render the sitemap's pages (or encode their images) for a browser.
 
-The rules are written against `@jterrazz/test` 17's result accessors, its peer range: `quality/console-silence` renders in Playwright's Chromium, an optional peer of `@jterrazz/test` the consumer installs.
+The rules are written against `@jterrazz/test` 19's result accessors, a devDependency of the consumer and no peer of this package: the entry imports neither it nor vitest at run time, so a site's production tree holds neither. `quality/console-silence` renders in Playwright's Chromium, an optional peer of `@jterrazz/test` the consumer installs.
 
 ## Related
 

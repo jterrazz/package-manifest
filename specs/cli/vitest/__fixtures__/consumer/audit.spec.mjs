@@ -1,6 +1,6 @@
 import { specification } from '@jterrazz/test';
 import { audit } from '@jterrazz/manifest/testing';
-import { afterAll } from 'vitest';
+import { afterAll, expect, test } from 'vitest';
 
 import { site } from './manifest.config.mjs';
 
@@ -10,4 +10,4 @@ export const { cleanup, website } = await specification.website({
 
 afterAll(cleanup);
 
-audit.website(website, site);
+audit.website(website, site, { expect, test });

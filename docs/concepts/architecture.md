@@ -11,7 +11,7 @@
 | `.`         | `src/index.ts`         | the model and the projections                                         |
 | `./testing` | `src/index.testing.ts` | the audit rule pack, `audit.website` ([Audit](../reference/audit.md)) |
 
-`vitest` and `@jterrazz/test` are optional peers: the build leaves them external, and a consumer that never imports `./testing` never installs them.
+The package declares no peer. `./testing` imports no test package at run time: the consumer hands it vitest's `test` and `expect`, and `@jterrazz/test` is named only in its types (`import type`, erased from `dist/`). A peer, even an optional one, is counted production by npm once installed, so a site's production tree would carry the test toolchain the audit runs on; this way it carries none of it.
 
 ## Model and projections
 
@@ -26,7 +26,7 @@ The package never reads content. A consumer implements `PageProvider`, a functio
 
 ## The audit entry
 
-`src/index.testing.ts` exports `audit`, a closed namespace in the shape of `@jterrazz/test`'s `specification`: one method, `audit.website(website, site)`, no options and no skip list, since the declaration itself conditions the rules. It registers eleven vitest tests in the consumer's own website spec, each driving the `WebsiteSpecification` handle the consumer built; `src/audit/markup.ts` reads what a served page declares off its markup, for the rules that need no browser. This entry is the one place production code imports test packages; `studio.config.ts` allows those two (`test.production.allow`), with the reason each is run, for the whole package, since the allow cannot name an entry ([Develop § The declaration](../guides/develop.md#the-declaration)).
+`src/index.testing.ts` exports `audit`, a closed namespace in the shape of `@jterrazz/test`'s `specification`: one method, `audit.website(website, site, { expect, test })`, no options and no skip list, since the declaration itself conditions the rules. It registers eleven tests in the consumer's own website spec, with the `test` and `expect` the consumer hands in (an `AuditRunner`: vitest's own), each driving the `WebsiteSpecification` handle the consumer built; `src/audit/markup.ts` reads what a served page declares off its markup, for the rules that need no browser. This entry is the one place production code names a test package, `@jterrazz/test`, and only for its types; `studio.config.ts` allows it (`test.production.allow`), with the reason, for the whole package, since the allow cannot name an entry ([Develop § The declaration](../guides/develop.md#the-declaration)).
 
 ## Related
 

@@ -20,9 +20,9 @@ The sequence, in order:
 
 Steps 2 to 5 are the owner's. A contributor never bumps the version inside a feature branch: two branches in flight would both claim the same number, and the tag is what the registry answers to.
 
-## The peer range
+## The `@jterrazz/test` major
 
-The `./testing` entry is written against `@jterrazz/test`'s accessors, so its peer range follows that package's major: a site whose specs run the audit on another major fails on this package, not on its own code. A new `@jterrazz/test` major is taken here, and released, before the sites that run the audit take it.
+The `./testing` entry is written against `@jterrazz/test`'s accessors, so it follows that package's major, held as a devDependency (no peer: a peer would count as production in every site): a site whose specs run the audit on another major fails on this package, not on its own code. A new `@jterrazz/test` major is taken here, and released, before the sites that run the audit take it.
 
 ## Related
 

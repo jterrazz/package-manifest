@@ -56,7 +56,7 @@ Per-page: one clear primary keyword, no two pages targeting the same one (cannib
 
 - `app/sitemap.ts`, `app/robots.ts`, and the Metadata API are the canonical mechanisms; no third-party SEO packages.
 - **Caveat:** `alternates.languages` does not auto-add the self-referencing hreflang for the current locale, so add it explicitly.
-- Wire a site into `@jterrazz/manifest` (`package-manifest`) rather than hand-rolling these surfaces: `manifest.config.ts` is the single source of truth, the sitemap, robots.txt and llms.txt are projected from it, the identity JSON-LD is a projected `@graph`, and a website spec runs the `audit.website(website, site)` rule pack against the built site via `specification.website()` (`@jterrazz/test`). Reference consumer: `jterrazz-web`, on Astro.
+- Wire a site into `@jterrazz/manifest` (`package-manifest`) rather than hand-rolling these surfaces: `manifest.config.ts` is the single source of truth, the sitemap, robots.txt and llms.txt are projected from it, the identity JSON-LD is a projected `@graph`, and a website spec runs the `audit.website(website, site, { expect, test })` rule pack against the built site via `specification.website()` (`@jterrazz/test`). Reference consumer: `jterrazz-web`, on Astro.
 
 ## Deep checklists
 

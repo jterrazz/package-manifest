@@ -34,18 +34,6 @@
         "playwright": "^1.63.0",
         "vitest": "^5.0.5"
     },
-    "peerDependencies": {
-        "@jterrazz/test": "^19.0.0",
-        "vitest": ">=5"
-    },
-    "peerDependenciesMeta": {
-        "@jterrazz/test": {
-            "optional": true
-        },
-        "vitest": {
-            "optional": true
-        }
-    },
     "engines": {
         "node": ">=24"
     }

@@ -4,11 +4,11 @@ A site's presence declared once, projected into every machine-facing surface, an
 
 ## Guides
 
-| Page                         | Answers                                                                                  |
-| ---------------------------- | ---------------------------------------------------------------------------------------- |
-| [Develop](guides/develop.md) | Changing the package: the declaration, the gestures, where a new file goes, what it owes |
-| [Test](guides/test.md)       | Proving a change: the specs that install the tarball, the audit spec, the mutations      |
-| [Release](guides/release.md) | How the package is published, who cuts a release, and what its peer range follows        |
+| Page                         | Answers                                                                                     |
+| ---------------------------- | ------------------------------------------------------------------------------------------- |
+| [Develop](guides/develop.md) | Changing the package: the declaration, the gestures, where a new file goes, what it owes    |
+| [Test](guides/test.md)       | Proving a change: the specs that install the tarball, the audit spec, the mutations         |
+| [Release](guides/release.md) | How the package is published, who cuts a release, and the `@jterrazz/test` major it follows |
 
 ## Concepts
 

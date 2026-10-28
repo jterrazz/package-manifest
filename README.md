@@ -46,7 +46,8 @@ projectLlms(site, pages); // string
 ```ts
 // specs/website/manifest/manifest.spec.ts
 import { audit } from '@jterrazz/manifest/testing';
-audit.website(website, site); // website from specification.website() (@jterrazz/test 17)
+import { expect, test } from 'vitest';
+audit.website(website, site, { expect, test }); // website from specification.website() (@jterrazz/test 19)
 ```
 
 The model speaks the language of intent; the projections speak the language of standards. The domain knowledge (SEO, GEO, structured data, content) ships as agent skills in [`skills/`](skills/).
@@ -58,7 +59,7 @@ The manual lives in [`docs/`](docs/README.md):
 - [Architecture](docs/concepts/architecture.md): the two entries, the model and the projections, the audit entry.
 - [Develop](docs/guides/develop.md): the declaration, the gestures, where a new file goes.
 - [Test](docs/guides/test.md): the specs from the tarball and the audit spec.
-- [Release](docs/guides/release.md): what publishes the package, and its peer range.
+- [Release](docs/guides/release.md): what publishes the package, and the `@jterrazz/test` major it follows.
 - [Projections](docs/reference/projections.md): URL policy, identity and image JSON-LD, sitemap, robots, llms.txt.
 - [Audit](docs/reference/audit.md): the eleven rules of `audit.website`.
 

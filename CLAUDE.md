@@ -11,7 +11,7 @@ The corpus is `docs/` + `README.md`, mapped by `docs/README.md`. Decisions this 
 | the two entries, the model and projections boundary      | `docs/concepts/architecture.md` |
 | the declaration, the gestures, where a new file goes     | `docs/guides/develop.md`        |
 | the specs from the tarball, the audit spec, the mutation | `docs/guides/test.md`           |
-| the release, and the peer range                          | `docs/guides/release.md`        |
+| the release, and the test major                          | `docs/guides/release.md`        |
 | what each projection produces                            | `docs/reference/projections.md` |
 | the ten audit rules                                      | `docs/reference/audit.md`       |
 

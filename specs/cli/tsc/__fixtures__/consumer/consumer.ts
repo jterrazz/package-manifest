@@ -36,6 +36,8 @@ import type {
     WebSiteNode,
 } from '@jterrazz/manifest';
 import { audit } from '@jterrazz/manifest/testing';
+import type { AuditAssertion, AuditRunner } from '@jterrazz/manifest/testing';
+import { expect, test } from 'vitest';
 
 const channels: Channels = { feed: false, llms: true };
 const discovery: Discovery = { aiCrawlers: 'blocked', hidden: [] };
@@ -82,8 +84,17 @@ defineSite({ ...site, discovery: { aiCrawlers: 'allowed', hidden: [] } });
 // @ts-expect-error person() derives its kind
 person({ headline: 'x', kind: 'person', name: 'x', occupation: 'x', profiles: [] });
 
+// invariant: vitest's own `expect` and `test` are a runner the audit accepts.
+const runner: AuditRunner = { expect, test };
+const assertion: AuditAssertion = expect(1);
+
 export function auditOf(website: WebsiteSpecification): void {
+    audit.website(website, site, runner);
+}
+
+export function auditUnregistered(website: WebsiteSpecification): void {
+    // @ts-expect-error the audit registers its rules with a runner the consumer hands in
     audit.website(website, site);
 }
 
-export { author, entries, graphId, homePriority, image, llms, personNode, robots, websiteNode };
+export { assertion, author, entries, graphId, homePriority, image, llms, personNode, robots, websiteNode };
